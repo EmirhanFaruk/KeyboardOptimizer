@@ -1,9 +1,11 @@
 package main;
 
-public class Main
+import controller.Main;
+
+public class App
 {
     public static void main(String[] args)
     {
-        System.out.println("PROJET DE MERDE");
+        Main.main();
     }
 }

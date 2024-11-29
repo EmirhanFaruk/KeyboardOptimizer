@@ -29,9 +29,9 @@ task jsondemo(type: JavaExec) {
     group = "Execution"
     description = "Demonstrate JSON serialization using GSON"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'main.Main'
+    mainClass = 'main.App'
 }
 
 application {
-    mainClass = 'main.Main'
+    mainClass = 'main.App'
 }
