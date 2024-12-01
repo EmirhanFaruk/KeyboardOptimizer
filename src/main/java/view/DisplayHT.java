@@ -1,9 +1,27 @@
 package view;
 
+import model.AnalyseFile;
+import model.Couple;
+
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 public class DisplayHT
 {
+    /**
+     * Prints "sorted ht".
+     * @param al Sorted hashtable
+     */
+    public static void printAL(ArrayList<Couple<String, Integer>> al)
+    {
+        for (Couple c : al)
+        {
+            System.out.println(c);
+        }
+    }
+
+
+
     /**
      * Prints the given HashTable.
      * @param ht HashTable
@@ -12,11 +30,13 @@ public class DisplayHT
     {
         if (ht != null)
         {
-            // Printing the key-value couples
-            for (String key : ht.keySet())
-            {
-                System.out.println("_" + key + "_: " + ht.get(key));
-            }
+            ArrayList<Couple<String, Integer>> sortedHT;
+
+            // Sort the hashtable
+            sortedHT = AnalyseFile.sortHT(ht);
+
+            // Print the sorted hashtable
+            printAL(sortedHT);
         }
         else
         {
