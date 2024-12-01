@@ -2,8 +2,8 @@ package model;
 
 public class Couple<String, Integer> implements Comparable
 {
-    final String key;
-    final int value;
+    private final String key;
+    private final int value;
     Couple (String key, int value)
     {
         this.key = key;
