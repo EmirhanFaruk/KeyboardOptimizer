@@ -42,12 +42,11 @@ public class Display
         displayFile();
         String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
         switch (userInput) {
-            case "court":
-                this.choosefile = "court"; break ;
-            case "moyen":
-                this.choosefile = "moyen"; break ;
-            case "long":
-                this.choosefile = "long"; break ;
+            case "bee_movie_script":
+                this.choosefile = "Bee_Movie_Script" ; break ;
+            case "bee_movie_script_with_newline":
+                this.choosefile = "Bee_Movie_Script_With_Newline" ; break ;
+
             default:
                 System.out.println("\nArgument invalide. Veuillez réessayer. ");
                 chooseDisplayFile();
@@ -56,9 +55,8 @@ public class Display
     }
 
     public void displayFile () {
-        System.out.println( "Court" ) ;
-        System.out.println( "Moyen" ) ;
-        System.out.println( "Long" ) ;
+        System.out.println( "Bee_Movie_Script" ) ;
+        System.out.println( "Bee_Movie_Script_With_Newline" ) ;
         System.out.print( "Choisissez le fichier que vous voulez analyser : " ) ;
     }
 
