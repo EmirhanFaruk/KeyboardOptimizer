@@ -16,6 +16,11 @@ public class Display
         this.choosefile = null ;
     }
 
+    /**
+     * Une fonction qui affiche le menu qui permet l'interactionavec l'utilisateur
+     * @throws FileNotFoundException si le fichier n'est pas trouvé
+     */
+
     public void showMenu () throws FileNotFoundException {
             displayMenu();
             String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
@@ -32,6 +37,10 @@ public class Display
                     showMenu();
         }
     }
+
+    /**
+     * Une fonction qui affiche dans le terminal le menu
+     */
     public void displayMenu() {
         System.out.println( "---------------- KEYBOARD ANALYSE ------------------" ) ;
         System.out.println( "1 : Commencez" ) ;
@@ -39,6 +48,10 @@ public class Display
         System.out.print( "Choisissez une option : " ) ;
     }
 
+    /**
+     * Une fonction qui permet de choisir le fichier qu'on veut decomposer
+     * @throws FileNotFoundException si le fichier n'est pas trouvé
+     */
     public void chooseDisplayFile () throws FileNotFoundException {
         displayFile();
         String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
@@ -55,6 +68,9 @@ public class Display
         ReadFile.openFile(this.choosefile );
     }
 
+    /**
+     * Une fonction qui affiche dans le terminal le choix des fichiers
+     */
     public void displayFile () {
         System.out.println( "1 : Bee_Movie_Script" ) ;
         System.out.println( "2 : Bee_Movie_Script_With_Newline" ) ;
@@ -62,11 +78,11 @@ public class Display
     }
 
 
+    /**
+     * Une fonction qui ferme le scanner activer dans le menu
+     */
     public static void closeScanner () {
         scannerAnswer.close() ;
     }
 
-    public Scanner getScanner() {
-        return scannerAnswer ;
-    }
 }
