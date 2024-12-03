@@ -3,13 +3,15 @@ package view;
 import model.ReadFile;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Display
 {
     static Scanner scannerAnswer ;
     private int nrv = 0 ;
-    static final String[] listFiles = { "Bee_Movie_Script.txt" , "Bee_Movie_Script_With_Newline.txt"} ;
+    static final ArrayList<String> listFiles = ReadFile.getFilePaths(true);
 
     public Display (){
         scannerAnswer = new Scanner(System.in) ;
@@ -55,20 +57,35 @@ public class Display
         String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
         try {
             int i = Integer.parseInt(userInput) - 1 ;
-            ReadFile.openFile(listFiles[i]);
+            ReadFile.openFile(listFiles.get(i));
+            displayMenu();
 
         } catch (Exception e) {
+            e.printStackTrace();
             errorMessage();
             chooseDisplayFile();
         }
     }
 
+
+    /**
+     * Afficher la liste des fichiers
+     */
+    private void printFiles()
+    {
+        ArrayList<String> files = ReadFile.getFilePaths(false);
+        for (int i = 0; i < files.size(); i++)
+        {
+            System.out.println((i + 1) + ": " + files.get(i));
+        }
+    }
+
+
     /**
      * Une fonction qui affiche dans le terminal le choix des fichiers
      */
     public void displayFile () {
-        System.out.println( "1 : Bee_Movie_Script" ) ;
-        System.out.println( "2 : Bee_Movie_Script_With_Newline" ) ;
+        printFiles();
         System.out.print( "Choisissez le fichier que vous voulez analyser : " ) ;
     }
 
