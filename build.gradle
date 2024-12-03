@@ -35,3 +35,7 @@ task jsondemo(type: JavaExec) {
 application {
     mainClass = 'main.App'
 }
+
+tasks.withType(JavaExec) {
+    standardInput = System.in
+}
