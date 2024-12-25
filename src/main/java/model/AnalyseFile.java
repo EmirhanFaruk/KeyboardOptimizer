@@ -217,6 +217,54 @@ public class AnalyseFile
     }
 
 
+    /**
+     * Checks if the elements of two given lists are the same.
+     * @param l1 list 1
+     * @param l2 list 2
+     * @return result
+     */
+    private static boolean sameList(String[] l1, String[] l2)
+    {
+        if (l1.length == l2.length)
+        {
+            for (int i = 0; i < l1.length; i++)
+            {
+                if ( !( l1[i].equals(l2[i]) ) )
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+
+    /**
+     * Check if the hashtable contains the key(given list).
+     * Returns its value if exists, -1 if not.
+     * @param ht hashtable
+     * @param list given list
+     * @return result
+     */
+    private static int findNIncrement(Hashtable<String[], Integer> ht, String[] list)
+    {
+        for (String[] key : ht.keySet())
+        {
+            if (sameList(list, key))
+            {
+                int val = ht.get(key);
+                ht.put(key, val + 1);
+                return val + 1;
+            }
+        }
+
+        return -1;
+    }
+
+
 
     /**
      * Returns the hashtable of the given text, containing the occurence number
@@ -257,12 +305,8 @@ public class AnalyseFile
             if (comp_a_comb != null)
             {
                 // If it exists, we increment its value by 1
-                if (ht.containsKey(comp_a_comb))
-                {
-                    int val = ht.get(comp_a_comb);
-                    ht.put(comp_a_comb, val + 1);
-                }
-                else
+                int val = findNIncrement(ht, comp_a_comb);
+                if (val == -1)
                 {
                     // If not, just add it to the hashtable
                     ht.put(comp_a_comb, 1);
