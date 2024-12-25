@@ -28,6 +28,21 @@ public class Couple implements Comparable<Couple>
     @Override
     public java.lang.String toString()
     {
-        return "_" + key + "_ -> " + value;
+        String res = "[ ";
+
+        for (int i = 0; i < key.length; i++)
+        {
+            if (i == key.length - 1)
+            {
+                res = res + key[i];
+            }
+            else
+            {
+                res = res + key[i] + " ";
+            }
+        }
+
+        res = res + " ] -> " + value;
+        return res;
     }
 }

@@ -52,7 +52,7 @@ public class DisplayHT
      * @param ht HashTable
      * @param text_name Text name
      */
-    public static void print(Hashtable<String, Integer> ht, String text_name)
+    public static void print(Hashtable<String[], Integer> ht, String text_name)
     {
         // Printing the header
         if (!(text_name == null || text_name.equals("")))

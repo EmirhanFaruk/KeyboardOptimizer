@@ -8,33 +8,16 @@ import java.util.Hashtable;
 
 public class AnalyseFile
 {
-    private static char[] two_key_combs =  {'î', 'â', 'ê', 'ô', 'û',
-                                            };
+    private static final char[] two_key_combs_hat =  {'î', 'â', 'ê', 'ô', 'û'};
+
+    private static final char[] three_key_combs_dp = {'ï', 'ä', 'ë'};
 
 
-    /**
-     * Returns true if ch is uppercase.
-     * @param ch the character
-     * @return result
-     */
-    private static boolean isUC(char ch)
+    private static boolean mem(char ch, char[] list)
     {
-        return Character.isUpperCase(ch);
-    }
-
-
-    /**
-     * Checks if the combination is in the list depending on the n
-     * @param ch character to look for
-     * @param n n-gramme
-     * @return result
-     */
-    private static boolean inCh(char ch, int n)
-    {
-        if (n < )
-        for (int i = 0; i < list.length; i++)
+        for (char chl : list)
         {
-            if (list[i] == ch)
+            if (chl == ch)
             {
                 return true;
             }
@@ -44,6 +27,165 @@ public class AnalyseFile
     }
 
 
+    /**
+     * Tourner une caractere d'un clavier a une combinaison s'il y en a
+     * @param ch caractere a regarder
+     * @return resultat
+     */
+    private static String[] getCh(char ch)
+    {
+        // Honestly I hate this but for now, this should work
+        if (mem(ch, two_key_combs_hat))
+        {
+            // {'î', 'â', 'ê', 'ô', 'û'}
+            return new String[]{"^", ch + ""};
+        }
+        if (mem(ch, three_key_combs_dp))
+        {
+            // {'ï', 'ä', 'ë'}
+            return new String[]{"Shift", "^", ch + ""};
+        }
+        if (ch >= 48 && ch <= 57)
+        {
+            // Numbers
+            return new String[]{"Shift", ch + ""};
+        }
+        if (ch >= 65 && ch <= 90)
+        {
+            // Uppercase letters
+            return new String[]{"Shift", ch + ""};
+        }
+        if (ch >= 97 && ch <= 122)
+        {
+            // Lowercase letters
+            return new String[]{ch + ""};
+        }
+        if (ch == ' ')
+        {
+            return new String[]{"Space"};
+        }
+        if (ch == '\n')
+        {
+            return new String[]{"Enter"};
+        }
+        // Special Characters using Shift
+        if (ch == '?')
+        {
+            return new String[]{"Shift", ","};
+        }
+        if (ch == '.')
+        {
+            return new String[]{"Shift", ";"};
+        }
+        if (ch == '/')
+        {
+            return new String[]{"Shift", ":"};
+        }
+        if (ch == '>')
+        {
+            return new String[]{"Shift", "<"};
+        }
+        if (ch == '+')
+        {
+            return new String[]{"Shift", "+"};
+        }
+        if (ch == '£')
+        {
+            return new String[]{"Shift", "$"};
+        }
+        if (ch == '%')
+        {
+            return new String[]{"Shift", "ù"};
+        }
+        if (ch == 'µ')
+        {
+            return new String[]{"Shift", "*"};
+        }
+        if (ch == '°')
+        {
+            return new String[]{"Shift", ")"};
+        }
+
+        // Special characters using AltGr
+        if (ch == '#')
+        {
+            return new String[]{"AltGr", "\""};
+        }
+        if (ch == '{')
+        {
+            return new String[]{"AltGr", "'"};
+        }
+        if (ch == '[')
+        {
+            return new String[]{"AltGr", "("};
+        }
+        if (ch == '|')
+        {
+            return new String[]{"AltGr", "-"};
+        }
+        if (ch == '\\')
+        {
+            return new String[]{"AltGr", "_"};
+        }
+        if (ch == '@')
+        {
+            return new String[]{"AltGr", "à"};
+        }
+        if (ch == ']')
+        {
+            return new String[]{"AltGr", ")"};
+        }
+        if (ch == '}')
+        {
+            return new String[]{"AltGr", "="};
+        }
+
+
+        // If nothing matches, return the character
+        return new String[]{ch + ""};
+    }
+
+
+    /**
+     * Checks if the combination can be in the list depending on the remaining length.
+     * If lenght exceeds, null is returned.
+     * @param ch character to look for
+     * @param len remaining length
+     * @return result
+     */
+    private static String[] inCh(char ch, int len)
+    {
+        String[] res = getCh(ch);
+        if (len >= res.length)
+        {
+            return res;
+        }
+
+        return null;
+    }
+
+
+    /**
+     * Concatenates 2 lists.
+     * @param l1 list 1
+     * @param l2 list 2
+     * @return result
+     */
+    private static String[] addToList(String[] l1, String[] l2)
+    {
+        String[] res = new String[l1.length + l2.length];
+        int i = 0;
+        for (; i < l1.length; i++)
+        {
+            res[i] = l1[i];
+        }
+        for (int j = 0; j < l2.length; j++)
+        {
+            res[i++] = l2[j];
+        }
+
+        return res;
+    }
 
     /**
      * Returns a list of keys, depending on comb.
@@ -59,17 +201,24 @@ public class AnalyseFile
         for (int i = 0; i < n; i++)
         {
             char c = comb.charAt(i);
-            if(isUC(c))
+            String[] temp = inCh(c, n - index);
+            if (temp != null)
             {
-
+                res = addToList(res, temp);
+                index += temp.length;
             }
-            if (inCh(c, n))
+            else
             {
-
+                return null;
             }
         }
 
-        return res;
+        if (res.length == n)
+        {
+            return res;
+        }
+
+        return null;
     }
 
 
@@ -107,17 +256,24 @@ public class AnalyseFile
             // Getting the char combination
             String comb = text.substring(i, i + n);
 
-            // If it exists, we increment its value by 1
-            if (ht.containsKey(comb))
+            // Getting the key combinations
+            String[] comp_a_comb = processString(comb, n);
+
+            if (comp_a_comb != null)
             {
-                int val = ht.get(comb);
-                ht.put(comb, val + 1);
+                // If it exists, we increment its value by 1
+                if (ht.containsKey(comp_a_comb))
+                {
+                    int val = ht.get(comp_a_comb);
+                    ht.put(comp_a_comb, val + 1);
+                }
+                else
+                {
+                    // If not, just add it to the hashtable
+                    ht.put(comp_a_comb, 1);
+                }
             }
-            else
-            {
-                // If not, just add it to the hashtable
-                ht.put(comb, 1);
-            }
+
         }
 
         return ht;
