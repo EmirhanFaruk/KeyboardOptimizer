@@ -1,11 +1,9 @@
 package controller;
 
 import model.AnalyseFile;
-import view.DisplayHT;
 import view.Display;
 
 import java.io.FileNotFoundException;
-import java.util.Hashtable;
 
 public class Main
 {

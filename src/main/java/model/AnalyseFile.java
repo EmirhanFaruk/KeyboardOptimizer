@@ -195,7 +195,7 @@ public class AnalyseFile
      */
     private static String[] processString(String comb, int n)
     {
-        String[] res = new String[n];
+        String[] res = new String[]{};
         int index = 0;
 
         for (int i = 0; i < n; i++)
@@ -213,12 +213,7 @@ public class AnalyseFile
             }
         }
 
-        if (res.length == n)
-        {
-            return res;
-        }
-
-        return null;
+        return res;
     }
 
 
