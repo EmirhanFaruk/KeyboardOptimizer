@@ -8,6 +8,72 @@ import java.util.Hashtable;
 
 public class AnalyseFile
 {
+    private static char[] two_key_combs =  {'î', 'â', 'ê', 'ô', 'û',
+                                            };
+
+
+    /**
+     * Returns true if ch is uppercase.
+     * @param ch the character
+     * @return result
+     */
+    private static boolean isUC(char ch)
+    {
+        return Character.isUpperCase(ch);
+    }
+
+
+    /**
+     * Checks if the combination is in the list depending on the n
+     * @param ch character to look for
+     * @param n n-gramme
+     * @return result
+     */
+    private static boolean inCh(char ch, int n)
+    {
+        if (n < )
+        for (int i = 0; i < list.length; i++)
+        {
+            if (list[i] == ch)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+
+
+    /**
+     * Returns a list of keys, depending on comb.
+     * @param comb n-long string
+     * @param n n-gramme
+     * @return result. null if failed somehow
+     */
+    private static String[] processString(String comb, int n)
+    {
+        String[] res = new String[n];
+        int index = 0;
+
+        for (int i = 0; i < n; i++)
+        {
+            char c = comb.charAt(i);
+            if(isUC(c))
+            {
+
+            }
+            if (inCh(c, n))
+            {
+
+            }
+        }
+
+        return res;
+    }
+
+
+
     /**
      * Returns the hashtable of the given text, containing the occurence number
      * of the character combinations of given n.
@@ -17,7 +83,7 @@ public class AnalyseFile
      * @param n The n of N-gramme
      * @return The result
      */
-    public static Hashtable<String, Integer> getHTofText(String text, Hashtable<String, Integer> ht, int n)
+    public static Hashtable<String[], Integer> getHTofText(String text, Hashtable<String[], Integer> ht, int n)
     {
         // If no hashtable given, make one
         if (ht == null)
@@ -64,7 +130,7 @@ public class AnalyseFile
      * @param n The n of N-gramme
      * @return The result
      */
-    public static Hashtable<String, Integer> getHTofText(String text, int n)
+    public static Hashtable<String[], Integer> getHTofText(String text, int n)
     {
         return getHTofText(text, null, n);
     }
@@ -75,7 +141,7 @@ public class AnalyseFile
      * @param ht Hashtable to sort
      * @return Sorted in ArrayList
      */
-    public static ArrayList<Couple<String, Integer>> sortHT(Hashtable<String, Integer> ht)
+    public static ArrayList<Couple> sortHT(Hashtable<String[], Integer> ht)
     {
         // If ht is null, return null
         if (ht == null)
@@ -83,10 +149,10 @@ public class AnalyseFile
             return null;
         }
 
-        ArrayList<Couple<String, Integer>> couples = new ArrayList<>();
+        ArrayList<Couple> couples = new ArrayList<>();
 
         // Add the elements to the list
-        for (String key : ht.keySet())
+        for (String[] key : ht.keySet())
         {
             couples.add(new Couple(key, ht.get(key)));
         }
@@ -108,7 +174,7 @@ public class AnalyseFile
         for (int i = 1; i < 4; i++)
         {
             System.out.println("================================================");
-            Hashtable<String, Integer> ht = AnalyseFile.getHTofText(ReadFile.text, i);
+            Hashtable<String[], Integer> ht = AnalyseFile.getHTofText(ReadFile.text, i);
             DisplayHT.print(ht, "Bee Movie Script",i);
         }
     }

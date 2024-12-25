@@ -1,35 +1,27 @@
 package model;
 
-public class Couple<String, Integer> implements Comparable
+public class Couple implements Comparable<Couple>
 {
-    private final String key;
+    private final String[] key;
     private final int value;
-    Couple (String key, int value)
+    Couple (String[] key, int value)
     {
         this.key = key;
         this.value = value;
     }
 
     @Override
-    public int compareTo(Object o)
+    public int compareTo(Couple c)
     {
-        if (o instanceof Couple)
+        if (value > c.value)
         {
-            Couple c = (Couple) o;
-            if (value > c.value)
-            {
-                return 1;
-            }
-            else if (value < c.value)
-            {
-                return -1;
-            }
-            return 0;
+            return 1;
         }
-        else
+        else if (value < c.value)
         {
-            throw new IllegalArgumentException();
+            return -1;
         }
+        return 0;
     }
 
 
