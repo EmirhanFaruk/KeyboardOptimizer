@@ -1,0 +1,31 @@
+{
+  "keys": {
+    "rows": [
+      {
+        "normal": ["²", "&", "é", "\"", "'", "(", "-", "è", "_", "ç", "à", ")", "="],
+        "shift": ["²", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "°", "+"],
+        "altgr": [null, "~", "#", "{", "[", "|", "`", "\\", "^", "@", "]", "}"]
+      },
+      {
+        "normal": ["tab","a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "^", "$"],
+        "shift": [ null,"A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "¨", "£"],
+        "altgr": [null, null, "€", null, null, null, null, null, null, null, null, null]
+      },
+      {
+        "normal": ["maj","q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "ù", "*"],
+        "shift": ["maj","Q", "S", "D", "F", "G", "H", "J", "K", "L", "M", "%", "µ"],
+        "altgr": ["maj",null, null, null, null, null, null, null, null, null, null, null, null]
+      },
+      {
+        "normal": ["<","w", "x", "c", "v", "b", "n", ",", ";", ":", "!"],
+        "shift": [">","W", "X", "C", "V", "B", "N", "?", ".", "/", "§"],
+        "altgr": [null,null, null, null, null, null, null, null, null, null, null]
+      },
+      {
+        "normal": ["ctrl", null, "alt", "space", "alt gr", null, null, "ctrl"],
+        "shift": [null, null, null, "space", null, null, null, null],
+        "altgr": [null, null, null, null, null, null, null, null]
+      }
+    ]
+  }
+}
