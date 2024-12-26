@@ -1,27 +1,35 @@
 package model;
 
-public class Couple implements Comparable<Couple>
+public class StLCouple implements Comparable
 {
     private final String[] key;
     private final int value;
-    Couple (String[] key, int value)
+    StLCouple (String[] key, int value)
     {
         this.key = key;
         this.value = value;
     }
 
     @Override
-    public int compareTo(Couple c)
+    public int compareTo(Object o)
     {
-        if (value > c.value)
+        if (o instanceof StLCouple)
         {
-            return 1;
+            StLCouple c = (StLCouple) o;
+            if (value > c.value)
+            {
+                return 1;
+            }
+            else if (value < c.value)
+            {
+                return -1;
+            }
+            return 0;
         }
-        else if (value < c.value)
+        else
         {
-            return -1;
+            throw new IllegalArgumentException();
         }
-        return 0;
     }
 
 
