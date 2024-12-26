@@ -1,10 +1,10 @@
 package model;
 
-public class Couple<String, Integer> implements Comparable
+public class StCouple implements Comparable
 {
     private final String key;
     private final int value;
-    Couple (String key, int value)
+    StCouple (String key, int value)
     {
         this.key = key;
         this.value = value;
@@ -13,9 +13,9 @@ public class Couple<String, Integer> implements Comparable
     @Override
     public int compareTo(Object o)
     {
-        if (o instanceof Couple)
+        if (o instanceof StCouple)
         {
-            Couple c = (Couple) o;
+            StCouple c = (StCouple) o;
             if (value > c.value)
             {
                 return 1;

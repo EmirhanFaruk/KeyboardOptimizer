@@ -12,6 +12,7 @@ public class Display
     static Scanner scannerAnswer ;
     private int nrv = 0 ;
     static final ArrayList<String> listFiles = ReadFile.getFilePaths(true);
+    private static boolean pourCaractere = false;
 
     public Display (){
         scannerAnswer = new Scanner(System.in) ;
@@ -29,6 +30,12 @@ public class Display
                 case "1":
                     System.out.println();
                     chooseDisplayFile();
+                    pourCaractere = true;
+                    break;
+                case "2":
+                    System.out.println();
+                    chooseDisplayFile();
+                    pourCaractere = false;
                     break;
                 case "q":
                     closeScanner();
@@ -44,7 +51,8 @@ public class Display
      */
     public void displayMenu() {
         System.out.println( "---------------- KEYBOARD ANALYSE ------------------" ) ;
-        System.out.println( "1 : Commencez" ) ;
+        System.out.println( "1 : Commencez pour les caracteres" ) ;
+        System.out.println( "2 : Commencez pour les combinaisons des touches" ) ;
         System.out.println( "Q : Quitter" ) ;
         System.out.print( "Choisissez une option : " ) ;
     }
@@ -117,4 +125,9 @@ public class Display
         scannerAnswer.close() ;
     }
 
+
+    public static boolean getPourCaractere()
+    {
+        return pourCaractere;
+    }
 }
