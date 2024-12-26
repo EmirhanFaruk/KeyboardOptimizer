@@ -5,12 +5,16 @@ public class Key {
     private int line ;
     private int column ;
     private String finger ;
+    private boolean isShifted;
+    private boolean isAltGr;
 
-    public Key( String touchName , int line , int column , String finger ) {
+    public Key( String touchName , int line , int column , String finger ,boolean isAltGr ) {
         this.touchName = touchName ;
         this.line = line ;
         this.column = column ;
         this.finger = finger ;
+        this.isShifted = Character.isUpperCase(touchName.charAt(0));
+        this.isAltGr = isAltGr ;
     }
 
     @Override
@@ -33,5 +37,13 @@ public class Key {
 
     public String getFinger() {
         return finger ;
+    }
+
+    public boolean isShifted() {
+        return isShifted;
+    }
+
+    public boolean isAltGr() {
+        return isAltGr;
     }
 }
