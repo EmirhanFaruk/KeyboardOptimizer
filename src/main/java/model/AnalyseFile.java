@@ -336,7 +336,7 @@ public class AnalyseFile
      * @param ht Hashtable to sort
      * @return Sorted in ArrayList
      */
-    public static ArrayList<Couple> sortHT(Hashtable<String[], Integer> ht)
+    public static ArrayList<StLCouple> sortHT(Hashtable<String[], Integer> ht)
     {
         // If ht is null, return null
         if (ht == null)
@@ -344,16 +344,16 @@ public class AnalyseFile
             return null;
         }
 
-        ArrayList<Couple> couples = new ArrayList<>();
+        ArrayList<StLCouple> couples = new ArrayList<>();
 
         // Add the elements to the list
         for (String[] key : ht.keySet())
         {
-            couples.add(new Couple(key, ht.get(key)));
+            couples.add(new StLCouple(key, ht.get(key)));
         }
 
         // Sort the list using the func in Couple
-        couples.sort(Couple::compareTo);
+        couples.sort(StLCouple::compareTo);
 
         // Reverse the list to get the biggest values at the top
         couples.sort(Comparator.reverseOrder());
@@ -370,7 +370,7 @@ public class AnalyseFile
         {
             System.out.println("================================================");
             Hashtable<String[], Integer> ht = AnalyseFile.getHTofText(ReadFile.text, i);
-            DisplayHT.print(ht, "Bee Movie Script",i);
+            DisplayHT.printAllStLN(ht, "Bee Movie Script",i);
         }
     }
 }
