@@ -1,7 +1,7 @@
 package controller;
 
-import model.AnalyseFile;
-import model.AnalyseFileChars;
+import model.analyse.AnalyseFile;
+import model.analyse.AnalyseFileChars;
 import view.Display;
 
 import java.io.FileNotFoundException;

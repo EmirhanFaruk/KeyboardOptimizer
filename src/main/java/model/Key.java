@@ -8,12 +8,12 @@ public class Key {
     private boolean isShifted;
     private boolean isAltGr;
 
-    public Key( String touchName , int line , int column , String finger ,boolean isAltGr ) {
+    public Key( String touchName , int line , int column , String finger , boolean isShifted , boolean isAltGr ) {
         this.touchName = touchName ;
         this.line = line ;
         this.column = column ;
         this.finger = finger ;
-        this.isShifted = Character.isUpperCase(touchName.charAt(0));
+        this.isShifted = isShifted;
         this.isAltGr = isAltGr ;
     }
 

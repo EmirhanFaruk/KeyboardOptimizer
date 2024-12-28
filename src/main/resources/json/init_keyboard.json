@@ -17,9 +17,9 @@
         "altgr": ["maj",null, null, null, null, null, null, null, null, null, null, null, null]
       },
       {
-        "normal": ["<","w", "x", "c", "v", "b", "n", ",", ";", ":", "!"],
-        "shift": [">","W", "X", "C", "V", "B", "N", "?", ".", "/", "§"],
-        "altgr": [null,null, null, null, null, null, null, null, null, null, null]
+        "normal": ["shift", "<", "w", "x", "c", "v", "b", "n", ",", ";", ":", "!"],
+        "shift": [null, ">", "W", "X", "C", "V", "B", "N", "?", ".", "/", "§"],
+        "altgr": [null, null, null, null, null, null, null, null, null, null, null, null]
       },
       {
         "normal": ["ctrl", null, "alt", "space", "alt gr", null, null, "ctrl"],
