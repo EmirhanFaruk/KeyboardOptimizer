@@ -2,11 +2,10 @@ package model.analyse;
 
 import model.ReadFile;
 import model.couple.StLCouple;
+import util.JSONWriter;
 import view.DisplayHT;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Hashtable;
+import java.util.*;
 
 public class AnalyseFile
 {
@@ -366,13 +365,17 @@ public class AnalyseFile
 
 
 
-    public static void test()
-    {
-        for (int i = 1; i < 4; i++)
-        {
+    public static void test() {
+        Map<String, Hashtable<String[], Integer>> allNGrammes = new HashMap<>();
+
+        for (int i = 1; i < 4; i++) {
             System.out.println("================================================");
             Hashtable<String[], Integer> ht = AnalyseFile.getHTofText(ReadFile.text, i);
-            DisplayHT.printAllStLN(ht, "Bee Movie Script",i);
+            DisplayHT.printAllStLN(ht, "Bee Movie Script", i);
+
+            allNGrammes.put(i + "-grammes", ht);
         }
+
+        JSONWriter.saveAllNGrammesAsJSON(allNGrammes, "ngrammes.json");
     }
 }
