@@ -5,21 +5,51 @@ public class Key {
     private int line ;
     private int column ;
     private String finger ;
+    private boolean rightHand;
     private boolean isShifted;
     private boolean isAltGr;
 
-    public Key( String touchName , int line , int column , String finger , boolean isShifted , boolean isAltGr ) {
+    public Key( String touchName , int line , int column , String finger , boolean rightHand , boolean isShifted , boolean isAltGr ) {
         this.touchName = touchName ;
         this.line = line ;
         this.column = column ;
         this.finger = finger ;
-        this.isShifted = isShifted;
+        this.rightHand = rightHand ;
+        this.isShifted = isShifted ;
         this.isAltGr = isAltGr ;
     }
 
     @Override
     public String toString() {
-        return  "Key(" + touchName + " , " + line + " , " + column + " , " + finger + " )";
+        String res = "Key(" + touchName + " , " + line + " , " + column + " , " + finger + ", ";
+        if ( rightHand )
+        {
+            res += "rightHand, ";
+        }
+        else
+        {
+            res += "leftHand, ";
+        }
+
+        if ( isShifted )
+        {
+            res += "isShifted, ";
+        }
+        else
+        {
+            res += "notShifted, ";
+        }
+
+        if (isAltGr)
+        {
+            res += "isAltGr )";
+        }
+        else
+        {
+            res += "notAltGr )";
+        }
+
+        return  res;
     }
 
     // Getters et setters

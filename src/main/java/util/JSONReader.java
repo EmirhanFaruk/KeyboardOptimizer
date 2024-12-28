@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -29,5 +30,13 @@ public class JSONReader {
             System.err.println( "Erreur lors de la lecture du fichier JSON : " + e.getMessage() ) ;
         }
         return null ;
+    }
+
+
+    public static Hashtable<String, ArrayList<ArrayList<ArrayList<String>>>> readKeyboardHTfromJSON(String filePath)
+    {
+
+
+        return null;
     }
 }
