@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 public class Keyboard
 {
-    private ArrayList<ArrayList<Key>> keys;
+    private final ArrayList<ArrayList<Key>> keys;
 
     public Keyboard(ArrayList<ArrayList<Key>> keys)
     {
@@ -22,7 +22,7 @@ public class Keyboard
         res[0] = null;
         res[1] = null;
 
-        if (line == 0)
+        if (line == 0 || line == 3)
         {
             if (column < 3)
             {
@@ -108,52 +108,19 @@ public class Keyboard
                 res[1] = "true";
             }
         }
-        else if (line == 3)
+        else if (line == 4)
         {
-            if (column < 3)
+            // TODO: How to know if space key is pressed by right or left?
+            if (column < 4)
             {
-                res[0] = "Pinky";
+                res[0] = "Thumb";
                 res[1] = "false";
-            }
-            else if (column == 3)
-            {
-                res[0] = "Ring Finger";
-                res[1] = "false";
-            }
-            else if (column == 4)
-            {
-                res[0] = "Middle Finger";
-                res[1] = "false";
-            }
-            else if (column == 5 || column == 6)
-            {
-                res[0] = "Index Finger";
-                res[1] = "false";
-            }
-            else if (column == 7 || column == 8)
-            {
-                res[0] = "Index Finger";
-                res[1] = "true";
-            }
-            else if (column == 9)
-            {
-                res[0] = "Middle Finger";
-                res[1] = "true";
-            }
-            else if (column == 10)
-            {
-                res[0] = "Ring Finger";
-                res[1] = "true";
             }
             else
             {
-                res[0] = "Pinky";
+                res[0] = "Thumb";
                 res[1] = "true";
             }
-        }
-        else if (line == 4)
-        {
-            // TODO: Do this. Also the finger changes when ctrl, shift etc is being used?
         }
 
         return res;
@@ -245,5 +212,129 @@ public class Keyboard
         }
 
         return new Keyboard(keyboardFromHT(ht));
+    }
+
+
+    /**
+     * Calculates finger totals, right and left.
+     * <p> first element is right and the other one is left
+     * <p> 0 -> Index Finger
+     * <p> 1 -> Middle Finger
+     * <p> 2 -> Ring Finger
+     * <p> 3 -> Pinky
+     * <p> 4 -> Thumb
+     * <p>
+     * Ex: res[0][0] is the num of right index finger
+     * @return result
+     */
+    private int[][] calculateFinger()
+    {
+        int[][] res = new int[5][2];
+        String[] fingers = {"Index Finger", "Middle Finger", "Ring Finger", "Pinky", "Thumb"};
+
+        for (ArrayList<Key> keyL : keys)
+        {
+            for (Key key : keyL)
+            {
+                if (key.isRightHand())
+                {
+                    for (int i = 0; i < fingers.length; i++)
+                    {
+                        if (fingers[i].equals(key.getFinger()))
+                        {
+                            res[i][0] += 1;
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < fingers.length; i++)
+                    {
+                        if (fingers[i].equals(key.getFinger()))
+                        {
+                            res[i][1] += 1;
+                        }
+                    }
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+    /**
+     * Calculates key right and left totals.
+     * @return [0] -> right, [1] -> left
+     */
+    private int[] calculateSide()
+    {
+        int[] res = new int[2];
+        for (ArrayList<Key> keyL : keys)
+        {
+            for (Key key : keyL)
+            {
+                if (key.isRightHand())
+                {
+                    res[0] += 1;
+                }
+                else
+                {
+                    res[1] += 1;
+                }
+            }
+        }
+
+        return res;
+    }
+
+
+
+    private String keyGrToString(ArrayList<Key> keyL, int i)
+    {
+        String res = "";
+        if (i == 0)
+        {
+            res += "Normal Keys (size: " + keyL.size() + "):\n";
+            for (Key key : keyL)
+            {
+                res += key.toString() + "\n";
+            }
+        }
+        else if (i == 1)
+        {
+            res += "Shift Keys (size: " + keyL.size() + "):\n";
+            for (Key key : keyL)
+            {
+                res += key.toString() + "\n";
+            }
+        }
+        else if (i == 2)
+        {
+            res += "AltGr Keys (size: " + keyL.size() + "):\n";
+            for (Key key : keyL)
+            {
+                res += key.toString() + "\n";
+            }
+        }
+
+        return res;
+    }
+
+
+    public String toString()
+    {
+        String res = "\n==================\nKeyboard. ";
+        int[] rl = calculateSide();
+        res += "Right hand keys: " + rl[0] + ", ";
+        res += "Left hand keys: " + rl[1] + ".\n";
+
+        for (int i = 0; i < keys.size(); i++)
+        {
+            ArrayList<Key> keyL = keys.get(i);
+            res += keyGrToString(keyL, i);
+        }
+        res += "\n===================\n";
+        return res;
     }
 }

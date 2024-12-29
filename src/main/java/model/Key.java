@@ -76,4 +76,8 @@ public class Key {
     public boolean isAltGr() {
         return isAltGr;
     }
+
+    public boolean isRightHand() {
+        return rightHand;
+    }
 }
