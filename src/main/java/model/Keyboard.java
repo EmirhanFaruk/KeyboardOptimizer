@@ -289,6 +289,21 @@ public class Keyboard
     }
 
 
+    private String fingerGrToString()
+    {
+        String res = "";
+
+        int[][] kid_named_finger = calculateFinger();
+
+        res += "\nIndex finger right: " + kid_named_finger[0][0] + ", left: " + kid_named_finger[0][1] + "\n";
+        res += "Middle finger right: " + kid_named_finger[1][0] + ", left: " + kid_named_finger[1][1] + "\n";
+        res += "Ring finger right: " + kid_named_finger[2][0] + ", left: " + kid_named_finger[2][1] + "\n";
+        res += "Pinky right: " + kid_named_finger[3][0] + ", left: " + kid_named_finger[3][1] + "\n";
+        res += "Thumb right: " + kid_named_finger[4][0] + ", left: " + kid_named_finger[4][1] + "\n";
+
+        return res;
+    }
+
 
     private String keyGrToString(ArrayList<Key> keyL, int i)
     {
@@ -324,10 +339,12 @@ public class Keyboard
 
     public String toString()
     {
-        String res = "\n==================\nKeyboard. ";
+        String res = "\n==================\nKeyboard.\n";
         int[] rl = calculateSide();
         res += "Right hand keys: " + rl[0] + ", ";
         res += "Left hand keys: " + rl[1] + ".\n";
+
+        res += fingerGrToString();
 
         for (int i = 0; i < keys.size(); i++)
         {
