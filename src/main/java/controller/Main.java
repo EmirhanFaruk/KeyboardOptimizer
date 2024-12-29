@@ -1,5 +1,6 @@
 package controller;
 
+import model.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
 import view.Display;
@@ -22,6 +23,9 @@ public class Main
             AnalyseFile.test();
         }
 
+        Keyboard keyboard = Keyboard.keyboardFromJSON("src/main/resources/json/init_keyboard.json");
+
+        System.out.println(keyboard);
 
     }
 }

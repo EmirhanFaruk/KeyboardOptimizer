@@ -15,7 +15,12 @@ public class Keyboard
     }
 
 
-
+    /**
+     * Gets the finger and the hand of given coordinates of the key.
+     * @param line line
+     * @param column column
+     * @return result in: {finger_name, isRight}
+     */
     private static String[] getFingerAndHand(int line, int column)
     {
         String[] res = new String[2];
@@ -137,6 +142,11 @@ public class Keyboard
     }
 
 
+    /**
+     * Turns hashtable into a keyboard object.
+     * @param ht the hashtable
+     * @return result
+     */
     private static ArrayList<ArrayList<Key>> keyboardFromHT(Hashtable<String, String[][][]> ht)
     {
         if (ht == null)
@@ -202,7 +212,11 @@ public class Keyboard
     }
 
 
-
+    /**
+     * Gets the keyboard from the given path(it has to be a JSON file)
+     * @param filePath path of the file
+     * @return a brand-new keyboard from the given file
+     */
     public static Keyboard keyboardFromJSON(String filePath)
     {
         Hashtable<String, String[][][]> ht = JSONReader.readKeyboardHTfromJSON(filePath);
@@ -289,6 +303,10 @@ public class Keyboard
     }
 
 
+    /**
+     * Gets the string for the finger part of the toString func.
+     * @return finger part
+     */
     private String fingerGrToString()
     {
         String res = "";
@@ -305,6 +323,12 @@ public class Keyboard
     }
 
 
+    /**
+     * Gets the string for the finger part of the toString func.
+     * @param keyL Key list(normal, shifted or altgr)
+     * @param i index
+     * @return result
+     */
     private String keyGrToString(ArrayList<Key> keyL, int i)
     {
         String res = "";
