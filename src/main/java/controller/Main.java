@@ -3,9 +3,11 @@ package controller;
 import model.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
+import util.JSONWriter;
 import view.Display;
 
 import java.io.FileNotFoundException;
+import java.util.Hashtable;
 
 public class Main
 {
@@ -14,18 +16,22 @@ public class Main
         Display display = new Display() ;
         display.showMenu();
 
-        if (Display.getPourCaractere())
-        {
-            AnalyseFileChars.test();
-        }
-        else
-        {
-            AnalyseFile.test();
-        }
+        Hashtable<String, Integer> NGrammesPourCaractere = new Hashtable<>() ;
+        Hashtable<String[], Integer> NGrammes = new Hashtable<>() ;
 
         Keyboard keyboard = Keyboard.keyboardFromJSON("src/main/resources/json/init_keyboard.json");
 
-        System.out.println(keyboard);
+        if (Display.getPourCaractere())
+        {
+            AnalyseFileChars.test( NGrammesPourCaractere );
+        }
+        else
+        {
+            AnalyseFile.test( NGrammes );
+        }
+
+        JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
+        //System.out.println(keyboard);
 
     }
 }

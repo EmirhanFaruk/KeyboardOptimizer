@@ -365,17 +365,16 @@ public class AnalyseFile
 
 
 
-    public static void test() {
+    public static void test( Hashtable<String[], Integer> NGrammes ) {
         Map<String, Hashtable<String[], Integer>> allNGrammes = new HashMap<>();
-
         for (int i = 1; i < 4; i++) {
             System.out.println("================================================");
             Hashtable<String[], Integer> ht = AnalyseFile.getHTofText(ReadFile.text, i);
-            DisplayHT.printAllStLN(ht, "Bee Movie Script", i);
+            //DisplayHT.printAllStLN(ht, "Bee Movie Script", i);
 
             allNGrammes.put(i + "-grammes", ht);
+            NGrammes.putAll(ht);
         }
-
         JSONWriter.saveAllNGrammesAsJSON(allNGrammes, "ngrammes.json");
     }
 }

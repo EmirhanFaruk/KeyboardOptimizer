@@ -105,13 +105,14 @@ public class AnalyseFileChars
 
 
 
-    public static void test()
+    public static void test( Hashtable<String, Integer> NGrammesPourCaractere )
     {
         for (int i = 1; i < 4; i++)
         {
             System.out.println("================================================");
             Hashtable<String, Integer> ht = AnalyseFileChars.getHTofText(ReadFile.text, i);
-            DisplayHT.printAllStN(ht, "Bee Movie Script",i);
+            //DisplayHT.printAllStN(ht, "Bee Movie Script",i);
+            NGrammesPourCaractere.putAll(ht);
         }
     }
 }
