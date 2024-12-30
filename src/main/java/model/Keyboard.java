@@ -180,8 +180,8 @@ public class Keyboard
                                 boolean rightHand = isTrue(kidney_failure[1]);
 
 
-                                boolean isShifted = j == 1;
-                                boolean isAltGr = j == 2;
+                                boolean isShifted = i == 1;
+                                boolean isAltGr = i == 2;
 
                                 Key toAdd = new Key(row[j][k], j, k, finger, rightHand, isShifted, isAltGr);
 
@@ -377,5 +377,9 @@ public class Keyboard
         }
         res += "\n===================\n";
         return res;
+    }
+
+    public ArrayList<ArrayList<Key>> getKeys() {
+        return keys;
     }
 }
