@@ -3,6 +3,7 @@ package controller;
 import model.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
+import model.keyboard.KeyboardOptimizer;
 import util.JSONWriter;
 import view.Display;
 
@@ -30,6 +31,8 @@ public class Main
             AnalyseFile.test( NGrammes );
         }
 
+        KeyboardOptimizer keyboardOptimizer = new KeyboardOptimizer( keyboard );
+        keyboard = keyboardOptimizer.optimize(NGrammes);
         JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
         //System.out.println(keyboard);
 

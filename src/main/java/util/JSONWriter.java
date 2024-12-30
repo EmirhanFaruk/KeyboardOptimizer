@@ -71,7 +71,7 @@ public class JSONWriter {
 
             // Initialise chaque colonne de la rangée avec null
             ArrayList<ArrayList<String>> rawRange = new ArrayList<>();
-            for (int rowIndex = 0; rowIndex < 13; rowIndex++) {
+            for (int rowIndex = 0; rowIndex < 5; rowIndex++) {
                 rawRange.add(new ArrayList<>(Collections.nCopies(13, null)));
             }
 
@@ -88,10 +88,7 @@ public class JSONWriter {
                     range.add(row);
                 }
             }
-
-            if (!range.isEmpty()) {
-                keys.add(range); // Ajoute seulement si la rangée n'est pas vide
-            }
+            keys.add(range);
         }
 
         jsonOutput.put("keys", keys);
