@@ -1,7 +1,8 @@
 package controller;
 
-import model.AnalyseFile;
-import model.AnalyseFileChars;
+import model.Keyboard;
+import model.analyse.AnalyseFile;
+import model.analyse.AnalyseFileChars;
 import view.Display;
 
 import java.io.FileNotFoundException;
@@ -22,6 +23,9 @@ public class Main
             AnalyseFile.test();
         }
 
+        Keyboard keyboard = Keyboard.keyboardFromJSON("src/main/resources/json/init_keyboard.json");
+
+        System.out.println(keyboard);
 
     }
 }

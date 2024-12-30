@@ -1,10 +1,10 @@
-package model;
+package model.couple;
 
 public class StLCouple implements Comparable
 {
     private final String[] key;
     private final int value;
-    StLCouple (String[] key, int value)
+    public StLCouple (String[] key, int value)
     {
         this.key = key;
         this.value = value;

@@ -1,9 +1,9 @@
 package view;
 
-import model.AnalyseFile;
-import model.AnalyseFileChars;
-import model.StCouple;
-import model.StLCouple;
+import model.analyse.AnalyseFile;
+import model.analyse.AnalyseFileChars;
+import model.couple.StCouple;
+import model.couple.StLCouple;
 
 import java.util.ArrayList;
 import java.util.Hashtable;

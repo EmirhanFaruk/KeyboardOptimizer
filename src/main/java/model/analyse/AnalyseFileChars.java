@@ -1,5 +1,7 @@
-package model;
+package model.analyse;
 
+import model.ReadFile;
+import model.couple.StCouple;
 import view.DisplayHT;
 
 import java.util.ArrayList;
