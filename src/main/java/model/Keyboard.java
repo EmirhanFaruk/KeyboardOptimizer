@@ -382,4 +382,15 @@ public class Keyboard
     public ArrayList<ArrayList<Key>> getKeys() {
         return keys;
     }
+
+    public Key findKey ( String name ) {
+        for ( ArrayList<Key> list : keys ) {
+            for ( Key key : list ) {
+                if ( key.getTouchName().equals(name)) {
+                    return key ;
+                }
+            }
+        }
+        return null ;
+    }
 }

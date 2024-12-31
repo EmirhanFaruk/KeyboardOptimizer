@@ -3,6 +3,7 @@ package controller;
 import model.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
+import model.keyboard.KeyboardEvaluator;
 import model.keyboard.KeyboardOptimizer;
 import util.JSONWriter;
 import view.Display;
@@ -21,6 +22,8 @@ public class Main
         Hashtable<String[], Integer> NGrammes = new Hashtable<>() ;
 
         Keyboard keyboard = Keyboard.keyboardFromJSON("src/main/resources/json/init_keyboard.json");
+        KeyboardOptimizer keyboardOptimizer = new KeyboardOptimizer( keyboard );
+        KeyboardEvaluator keyboardEvaluator = new KeyboardEvaluator( keyboard ) ;
 
         if (Display.getPourCaractere())
         {
@@ -29,11 +32,15 @@ public class Main
         else
         {
             AnalyseFile.test( NGrammes );
+            keyboard = keyboardOptimizer.optimize(NGrammes);
         }
 
-        KeyboardOptimizer keyboardOptimizer = new KeyboardOptimizer( keyboard );
-        keyboard = keyboardOptimizer.optimize(NGrammes);
+        System.out.println( "Le score du clavier avant l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
+
         JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
+
+        System.out.println( "Le score du clavier apres optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
+
         //System.out.println(keyboard);
 
     }
