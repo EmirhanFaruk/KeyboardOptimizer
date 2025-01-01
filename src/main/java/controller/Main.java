@@ -37,8 +37,7 @@ public class Main
 
         System.out.println( "Le score du clavier avant l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
-        keyboardOptimizer.optimize(NGrammes);
-        keyboard = keyboardOptimizer.getKeyboard() ;
+        keyboard = keyboardOptimizer.optimize(NGrammes);
 
         JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
         keyboardEvaluator.setKeyboard(keyboard);
