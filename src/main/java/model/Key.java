@@ -119,4 +119,12 @@ public class Key {
     public boolean isRightHand() {
         return rightHand;
     }
+
+    public void setRangee(int rangee) {
+        this.line = rangee ;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
 }

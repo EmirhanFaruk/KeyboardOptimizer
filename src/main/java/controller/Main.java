@@ -1,5 +1,6 @@
 package controller;
 
+import model.Key;
 import model.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
@@ -32,12 +33,15 @@ public class Main
         else
         {
             AnalyseFile.test( NGrammes );
-            keyboard = keyboardOptimizer.optimize(NGrammes);
         }
 
         System.out.println( "Le score du clavier avant l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
+        keyboardOptimizer.optimize(NGrammes);
+        keyboard = keyboardOptimizer.getKeyboard() ;
+
         JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
+        keyboardEvaluator.setKeyboard(keyboard);
 
         System.out.println( "Le score du clavier apres optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
