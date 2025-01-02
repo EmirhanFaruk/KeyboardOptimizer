@@ -63,23 +63,31 @@ public class KeyboardOptimizer {
         }
     }
 
+    /**
+     * Une fonction d'initialisation du pool qui fournit un nb aléatoire de clavier
+     * @return une liste de keyboard
+     */
     public ArrayList<Keyboard> initialisePool () {
         ArrayList<Keyboard> res = new ArrayList<>() ;
-        Keyboard kb1 = randomSwitchkey() ;
-        Keyboard kb2 = randomSwitchkey() ;
-        Keyboard kb3 = cross( kb1 , kb2 ) ;
-        Keyboard kb4 = cross( kb2 , kb1 ) ;
-        res.add( kb1 ) ;
-        res.add( kb2 ) ;
-        res.add( kb3 ) ;
-        res.add( kb4 ) ;
 
+        int nbKeyboards = 3 + random.nextInt( 8 ) ;
+        for ( int i = 0 ; i < nbKeyboards ; i++ ) {
+            res.add( randomSwitchkey() ) ;
+        }
+
+        int numCross = random.nextInt( nbKeyboards ) ;
+        for ( int i = 0 ; i < numCross ; i++ ) {
+            Keyboard A = res.get( random.nextInt( res.size() ) ) ;
+            Keyboard B = res.get( random.nextInt( res.size() ) ) ;
+
+            res.add( cross( A , B ) ) ;
+        }
         return res ;
     }
 
     /**
-     * Une fonction qui est un clavier random
-     * @return clavier random
+     * Une fonction qui renvoie un clavier qui change aléatoirement les touches
+     * @return un clavier randomise
      */
     private Keyboard randomSwitchkey () {
         Keyboard res = keyboardOriginal.clone() ;
@@ -100,6 +108,64 @@ public class KeyboardOptimizer {
      * @return le clavier combiné
      */
     private Keyboard cross(Keyboard kb1, Keyboard kb2) {
-        return kb1 ;
+        int length = kb1.getKeys().get(0).size() ;
+        ArrayList<ArrayList<Key>> res = new ArrayList<> ( Collections.nCopies( kb1.getKeys().size() , null ) ) ;
+        for ( int i = 0 ; i < res.size() ; i++ ) res.set(i , new ArrayList<>() ) ;
+
+        int half = length / 2 ;
+        ArrayList<Key> usedKeys = new ArrayList<>() ;
+
+        // Remplir la première moitié avec les touches de kb1
+        for ( int i = 0 ; i < half; i++ ) {
+            for ( int j = 0 ; j < res.size() ; j++ ) {
+                if (i < kb1.getKeys().get(j).size()) {
+                    Key key = kb1.getKeys().get(j).get(i);
+                    res.get(j).add(key);
+                    usedKeys.add(key);
+                }
+            }
+        }
+
+        // Remplir la deuxième moitié avec les touches de kb2 sans doublons
+        for ( int i = half ; i < kb2.getKeys().get(0).size() ; i++ ) {
+            for ( int j = 0 ; j < res.size() ; j++ ) {
+                if (i < kb2.getKeys().get(j).size()) {
+                    Key key = kb2.getKeys().get(j).get(i);
+                    if (!usedKeys.contains(key)) {
+                        res.get(j).add(key);
+                        usedKeys.add(key);
+                    }
+                }
+            }
+        }
+
+        completeWithKeys( kb1 , usedKeys , res );
+        completeWithKeys( kb2 , usedKeys , res );
+
+        return new Keyboard( res ) ;
+    }
+
+    /**
+     * Une fonction qui complete res avec les touches manquantes de kb
+     * @param kb le clavier
+     * @param usedKeys la liste de touche deja dans res
+     * @param res le resultat
+     */
+    private void completeWithKeys(Keyboard kb, ArrayList<Key> usedKeys, ArrayList<ArrayList<Key>> res) {
+        for (int j = 0; j < kb.getKeys().size(); j++) {
+            for (int i = 0; i < kb.getKeys().get(j).size(); i++) {
+                Key key = kb.getKeys().get(j).get(i);
+                if (!usedKeys.contains(key)) {
+                    // Trouver la première position libre dans res
+                    for (int k = 0; k < res.get(j).size(); k++) {
+                        if (res.get(j).get(k) == null) {
+                            res.get(j).add(key);
+                            usedKeys.add(key);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }
