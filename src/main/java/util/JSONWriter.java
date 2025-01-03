@@ -3,6 +3,9 @@ package util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import model.Key;
+import model.Keyboard;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
@@ -57,5 +60,60 @@ public class JSONWriter {
             e.printStackTrace() ;
         }
     }
+
+
+    private static Map<String, ArrayList<ArrayList<ArrayList<String>>>> getStringArrayListMap(Keyboard keyboard) {
+        Map<String, ArrayList<ArrayList<ArrayList<String>>>> jsonOutput = new LinkedHashMap<>();
+        ArrayList<ArrayList<ArrayList<String>>> keys = new ArrayList<>();
+
+        for (ArrayList<Key> keyList : keyboard.getKeys()) {
+            ArrayList<ArrayList<String>> range = new ArrayList<>();
+
+            // Initialise chaque colonne de la rangée avec null
+            ArrayList<ArrayList<String>> rawRange = new ArrayList<>();
+            for (int rowIndex = 0; rowIndex < 5; rowIndex++) {
+                rawRange.add(new ArrayList<>(Collections.nCopies(13, null)));
+            }
+
+            // Place les touches aux positions correspondantes
+            for (Key key : keyList) {
+                int row = key.getRangee(); // Ligne où se trouve la touche
+                int col = key.getColumn(); // Colonne où se trouve la touche
+                rawRange.get(row).set(col, key.getTouchName());
+            }
+
+            // Filtre les rangées qui contiennent au moins une valeur non nulle
+            for (ArrayList<String> row : rawRange) {
+                if (row.stream().anyMatch(Objects::nonNull)) {
+                    range.add(row);
+                }
+            }
+            keys.add(range);
+        }
+
+        jsonOutput.put("keys", keys);
+        return jsonOutput;
+    }
+
+    public static void saveOptimizedKeyboardAsJSON( Keyboard keyboard, String filename) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
+
+        try {
+            final Map<String, ArrayList<ArrayList<ArrayList<String>>>> jsonOutput = getStringArrayListMap(keyboard);
+
+            // Sauvegarder le fichier JSON
+            String s = File.separator;
+            String path = System.getProperty("user.dir") + s + "src" + s + "main" + s + "resources" + s + "json" + s + filename;
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue( new File(path), jsonOutput);
+            System.out.println("Fichier JSON sauvegardé : " + filename);
+
+        } catch (IOException e) {
+            System.out.println("Le fichier json n'a pas pu être créé.");
+            e.printStackTrace();
+        }
+    }
+
+
 }
 
