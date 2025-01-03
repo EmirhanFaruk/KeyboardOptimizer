@@ -4,6 +4,7 @@ import util.JSONReader;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Objects;
 
 public class Keyboard
 {
@@ -382,6 +383,27 @@ public class Keyboard
 
     public ArrayList<ArrayList<Key>> getKeys() {
         return keys;
+    }
+
+    public Key getKey(int i, int j, String mode)
+    {
+        for (ArrayList<Key> keyL : keys)
+        {
+            for (Key key : keyL)
+            {
+                if (Objects.equals(mode, "Normal") && !key.isAltGr() && key.isShifted() ||
+                        Objects.equals(mode, "AltGr") && key.isAltGr() && !key.isShifted() ||
+                        Objects.equals(mode, "Shift") && !key.isAltGr() && key.isShifted())
+                {
+                    if (key.getColumn() == i && key.getLine() == j)
+                    {
+                        return key;
+                    }
+                }
+            }
+        }
+
+        return null;
     }
 
     public Key findKey ( String name ) {

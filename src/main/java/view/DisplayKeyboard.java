@@ -1,7 +1,10 @@
 package view;
 
 
+import model.keyboard.Key;
+import model.keyboard.Keyboard;
 
+import java.util.ArrayList;
 
 /*
 Color Name	Color code	Background Color	Background Color code
@@ -206,5 +209,19 @@ public class DisplayKeyboard
 
 
 
+
+    private static void printFirstRow(Keyboard keyboard, String mode)
+    {
+        for (int i = 0; i < 13; i++)
+        {
+            printBoxBottom(BG_BLACK, FG_WHITE, 3, false, false);
+        }
+        printBoxBottom(BG_BLACK, FG_WHITE, 6, false, false);
+
+        for (int i = 0; i < 13; i++)
+        {
+            
+        }
+    }
 
 }

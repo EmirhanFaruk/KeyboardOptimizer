@@ -1,4 +1,7 @@
-package model.keyboard;
+package model.keyboardeval;
+
+import model.keyboard.Key;
+import model.keyboard.Keyboard;
 
 import java.util.ArrayList;
 import java.util.HashMap;

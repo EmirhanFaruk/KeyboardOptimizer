@@ -3,8 +3,8 @@ package controller;
 import model.keyboard.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
-import model.keyboard.KeyboardEvaluator;
-import model.keyboard.KeyboardOptimizer;
+import model.keyboardeval.KeyboardEvaluator;
+import model.keyboardeval.KeyboardOptimizer;
 import util.JSONWriter;
 import view.Display;
 

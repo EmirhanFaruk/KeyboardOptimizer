@@ -104,6 +104,10 @@ public class Key {
         return column ;
     }
 
+    public int getLine() {
+        return line;
+    }
+
     public String getFinger() {
         return finger ;
     }

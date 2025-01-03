@@ -1,4 +1,7 @@
-package model.keyboard;
+package model.keyboardeval;
+
+import model.keyboard.Key;
+import model.keyboard.Keyboard;
 
 import java.util.*;
 
@@ -40,7 +43,7 @@ public class KeyboardOptimizer {
      * @param k1 touche 1
      * @param k2 touche 2
      */
-    public void switchKey ( Keyboard keyboard , Key k1 , Key k2 ) {
+    public void switchKey (Keyboard keyboard , Key k1 , Key k2 ) {
         int rowk1 = k1.getRangee(), colk1 = k1.getColumn();
         int rowk2 = k2.getRangee(), colk2 = k2.getColumn();
 
