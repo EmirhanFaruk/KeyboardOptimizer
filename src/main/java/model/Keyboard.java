@@ -393,4 +393,17 @@ public class Keyboard
         }
         return null ;
     }
+
+    public Keyboard clone() {
+        ArrayList<ArrayList<Key>> clonedKeys = new ArrayList<>();
+        for (ArrayList<Key> row : this.getKeys()) {
+            ArrayList<Key> clonedRow = new ArrayList<>();
+            for (Key key : row) {
+                Key clonedKey = new Key(key.getTouchName(), key.getRangee(), key.getColumn(), key.getFinger(), key.isRightHand(), key.isShifted(), key.isAltGr());
+                clonedRow.add(clonedKey);
+            }
+            clonedKeys.add(clonedRow);
+        }
+        return new Keyboard(clonedKeys);
+    }
 }

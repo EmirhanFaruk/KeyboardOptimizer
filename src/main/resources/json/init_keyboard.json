@@ -15,7 +15,7 @@
       [null, null, null, "space", null, null, null, null]
     ],
     [
-      [null, "~", "#", "{", "[", "|", "`", "\\", "^", "@", "]", "}"],
+      [null, null, "~", "#", "{", "[", "|", "`", "\\", "^", "@", "]", "}"],
       [null, null, null, "€", null, null, null, null, null, null, null, "¤"],
       ["maj", null, null, null, null, null, null, null, null, null, null, null, null],
       [null, null, null, null, null, null, null, null, null, null, null, null],

@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class KeyboardEvaluator {
 
-    private final Keyboard keyboard;
+    private Keyboard keyboard;
 
     public KeyboardEvaluator(Keyboard keyboard) {
         this.keyboard = keyboard;
@@ -171,5 +171,13 @@ public class KeyboardEvaluator {
         Key firstKey = keyboard.findKey(trigram[0]);
         Key thirdKey = keyboard.findKey(trigram[2]);
         return firstKey.getFinger().equals(thirdKey.getFinger());
+    }
+
+    public Keyboard getKeyboard() {
+        return keyboard;
+    }
+
+    public void setKeyboard(Keyboard keyboard) {
+        this.keyboard = keyboard;
     }
 }
