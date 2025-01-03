@@ -3,8 +3,8 @@ package util;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
-import model.Key;
-import model.Keyboard;
+import model.keyboard.Key;
+import model.keyboard.Keyboard;
 
 import java.io.File;
 import java.io.IOException;

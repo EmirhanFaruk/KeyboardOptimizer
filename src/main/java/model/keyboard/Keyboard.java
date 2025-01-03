@@ -1,4 +1,4 @@
-package model;
+package model.keyboard;
 
 import util.JSONReader;
 
@@ -311,6 +311,7 @@ public class Keyboard
     {
         String res = "";
 
+        // Avoir les nombres de touches par doigt
         int[][] kid_named_finger = calculateFinger();
 
         res += "\nIndex finger right: " + kid_named_finger[0][0] + ", left: " + kid_named_finger[0][1] + "\n";

@@ -1,4 +1,4 @@
-package model;
+package model.keyboard;
 
 public class Key {
     private String touchName ;

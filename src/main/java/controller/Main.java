@@ -1,7 +1,6 @@
 package controller;
 
-import model.Key;
-import model.Keyboard;
+import model.keyboard.Keyboard;
 import model.analyse.AnalyseFile;
 import model.analyse.AnalyseFileChars;
 import model.keyboard.KeyboardEvaluator;
@@ -44,7 +43,7 @@ public class Main
 
         System.out.println( "Le score du clavier apres optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
-        //System.out.println(keyboard);
+        System.out.println(keyboard);
 
     }
 }

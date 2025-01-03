@@ -1,8 +1,5 @@
 package model.keyboard;
 
-import model.Key;
-import model.Keyboard;
-
 import java.util.*;
 
 public class KeyboardOptimizer {
