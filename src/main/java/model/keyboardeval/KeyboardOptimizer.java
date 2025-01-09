@@ -16,9 +16,9 @@ public class KeyboardOptimizer {
 
     private final Keyboard keyboardOriginal;
 
-    private KeyboardEvaluator keyboardEvaluator ;
-    private Random random;
-    private List<Keyboard> pool;
+    private final KeyboardEvaluator keyboardEvaluator ;
+    private final Random random;
+    private final List<Keyboard> pool;
     public KeyboardOptimizer( Keyboard keyboard ) {
         this.keyboardOriginal = keyboard;
         this.keyboardEvaluator = new KeyboardEvaluator( this.keyboardOriginal ) ;
@@ -62,6 +62,19 @@ public class KeyboardOptimizer {
 
         return false;
     }
+
+
+    /**
+     * Returns sk name in dk coordinates and fingers etc with a new key.
+     * @param sk source key
+     * @param dk destination key
+     * @return new key
+     */
+    private Key getCounterKey(Key sk, Key dk)
+    {
+        return new Key(sk.getTouchName(), dk.getLine(), dk.getColumn(), dk.getFinger(), dk.isRightHand(), dk.isShifted(), dk.isAltGr());
+    }
+
 
     /**
      * Une fonction qui switch juste une touche normale

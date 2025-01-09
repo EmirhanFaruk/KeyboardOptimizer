@@ -1,13 +1,13 @@
 package model.keyboard;
 
 public class Key {
-    private String touchName ;
-    private int line ;
-    private int column ;
-    private String finger ;
-    private boolean rightHand;
-    private boolean isShifted;
-    private boolean isAltGr;
+    private final String touchName ;
+    private final int line ;
+    private final int column ;
+    private final String finger ;
+    private final boolean rightHand;
+    private final boolean isShifted;
+    private final boolean isAltGr;
 
     public Key( String touchName , int line , int column , String finger , boolean rightHand , boolean isShifted , boolean isAltGr ) {
         this.touchName = touchName ;
@@ -122,13 +122,5 @@ public class Key {
 
     public boolean isRightHand() {
         return rightHand;
-    }
-
-    public void setRangee(int rangee) {
-        this.line = rangee ;
-    }
-
-    public void setColumn(int column) {
-        this.column = column;
     }
 }
