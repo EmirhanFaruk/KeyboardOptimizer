@@ -7,6 +7,13 @@ import java.util.*;
 
 public class KeyboardOptimizer {
 
+
+    private static final String[] immutable_keys =
+            {
+                    "shift", "maj", "space", "alt", "ctrl", "alt gr", "tab"
+            };
+
+
     private final Keyboard keyboardOriginal;
 
     private KeyboardEvaluator keyboardEvaluator ;
@@ -39,11 +46,38 @@ public class KeyboardOptimizer {
 
 
     /**
+     * Checks if the keyname is in immutable keys
+     * @param key key
+     * @return true if in the list
+     */
+    private boolean isForbidden(Key key)
+    {
+        for ( String immutable_key : immutable_keys )
+        {
+            if (immutable_key.equals(key.getTouchName()))
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Une fonction qui switch juste une touche normale
      * @param k1 touche 1
      * @param k2 touche 2
      */
     public void switchKey (Keyboard keyboard , Key k1 , Key k2 ) {
+        if (k1 == null || k2 == null)
+        {
+            return;
+        }
+        if (isForbidden(k1) || isForbidden(k2))
+        {
+            return;
+        }
+
         int rowk1 = k1.getRangee(), colk1 = k1.getColumn();
         int rowk2 = k2.getRangee(), colk2 = k2.getColumn();
 
@@ -96,6 +130,13 @@ public class KeyboardOptimizer {
         for ( int i = 0 ; i < nbChangement ; i++ ) {
             Key k1 = res.getKeys().get(0).get( random.nextInt(length) ) ;
             Key k2 = res.getKeys().get(0).get( random.nextInt(length) ) ;
+
+            if (k1 == null || k2 == null || (isForbidden(k1) || isForbidden(k2)))
+            {
+                i--;
+                continue;
+            }
+
             switchKey( res , k1 , k2 );
         }
         return res ;

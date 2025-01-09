@@ -4,7 +4,6 @@ package view;
 import model.keyboard.Key;
 import model.keyboard.Keyboard;
 
-import java.util.ArrayList;
 
 /*
 Color Name	Color code	Background Color	Background Color code
@@ -49,7 +48,7 @@ public class DisplayKeyboard
     private static final String BG_BLUE = "\u001B[44m";
     private static final String BG_CYAN = "\u001B[46m";
     private static final String BG_GREEN = "\u001B[42m";
-    private static final String BG_ORANGE = "\u001B[48;2;255;165;0m"; // Note: ORANGE may not be widely supported; mapped to yellow.
+    private static final String BG_ORANGE = "\u001B[48;2;255;165;0m";
     private static final String BG_YELLOW = "\u001B[43m";
     private static final String BG_RED = "\u001B[41m";
 
@@ -235,7 +234,7 @@ public class DisplayKeyboard
     }
 
 
-    public static void printWholeRow(Keyboard keyboard, String mode, int line)
+    private static void printWholeRow(Keyboard keyboard, String mode, int line)
     {
         printBoxBottom(BG_BLACK, FG_WHITE, 13 * 4 + 1, false, false);
 
