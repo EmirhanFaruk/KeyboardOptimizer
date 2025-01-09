@@ -29,23 +29,28 @@ Thumb:         red
  */
 public class DisplayKeyboard
 {
+    // Foregrounds
+    private static final String FG_BLUE = "\u001B[34m";
+    private static final String FG_CYAN = "\u001B[36m";
+    private static final String FG_GREEN = "\u001B[32m";
+    private static final String FG_ORANGE = "\u001B[35m";
+    private static final String FG_YELLOW = "\u001B[33m";
+    private static final String FG_RED = "\u001B[31m";
+
+    private static final String BG_WHITE = "\u001B[37m";
+    private static final String BG_BLACK = "\u001B[40m";
+    private static final String BG_RESET = "\\e[40m";
+
     // Backgrounds
+    private static final String BG_BLACK = "\u001B[40m";
+    private static final String BG_WHITE = "\u001B[40m";
     private static final String BG_BLUE = "\u001B[34m";
     private static final String BG_CYAN = "\u001B[36m";
     private static final String BG_GREEN = "\u001B[32m";
     private static final String BG_ORANGE = "\u001B[35m";
     private static final String BG_YELLOW = "\u001B[33m";
     private static final String BG_RED = "\u001B[31m";
-
-    private static final String BG_WHITE = "\u001B[37m";
-    private static final String BG_BLACK = "\u001B[40m";
     private static final String BG_RESET = "\u001B[0m";
-
-    // Foregrounds
-    private static final String FG_BLACK = "\u001B[40m";
-    private static final String FG_WHITE = "\u001B[40m";
-    private static final String FG_PURPLE = "\u001B[35m";
-    private static final String FG_RESET = "\u001B[0m";
 
 
 
@@ -71,7 +76,6 @@ public class DisplayKeyboard
      */
     private static void writeWStyle(String bg, String fg, String text)
     {
-        resetColours();
         setColours(bg, fg);
         System.out.print(text);
         resetColours();
@@ -116,7 +120,7 @@ public class DisplayKeyboard
         // Print first bar
         if (first_bar)
         {
-            writeWStyle(BG_BLACK, FG_PURPLE, "|");
+            writeWStyle("", "", "|");
         }
 
         // Set colour of the key(bg and fg)
@@ -141,40 +145,13 @@ public class DisplayKeyboard
         // Print last bar
         if (last_bar)
         {
-            writeWStyle(BG_BLACK, FG_BLACK, "|");
+            writeWStyle("", "", "|");
         }
 
         // Reset the colours
         resetColours();
     }
 
-
-    /**
-     * Essentially prints |     | depending on the parameters.
-     * @param bg the space colour
-     * @param length length of the "box"
-     * @param first_bar true if the first bar will be printed
-     * @param last_bar true if the last bar will be printed
-     */
-    private static void printBoxTop(String bg, int length, boolean first_bar, boolean last_bar)
-    {
-        // Print first bar
-        if (first_bar)
-        {
-            writeWStyle(BG_BLACK, FG_PURPLE, "|");
-        }
-
-        setColours(bg, "");
-        printChar(length, ' ');
-
-        // Print last bar
-        if (last_bar)
-        {
-            writeWStyle(BG_BLACK, FG_BLACK, "|");
-        }
-
-        resetColours();
-    }
 
 
     /**
@@ -190,7 +167,7 @@ public class DisplayKeyboard
         // Print first bar
         if (first_bar)
         {
-            writeWStyle(BG_BLACK, FG_PURPLE, "|");
+            writeWStyle("", "", "|");
         }
 
         setColours(bg, fg);
@@ -199,7 +176,7 @@ public class DisplayKeyboard
         // Print last bar
         if (last_bar)
         {
-            writeWStyle(BG_BLACK, FG_BLACK, "|");
+            writeWStyle("", "", "|");
         }
 
         resetColours();
@@ -208,20 +185,75 @@ public class DisplayKeyboard
 
 
 
-
-
-    private static void printFirstRow(Keyboard keyboard, String mode)
+    /*
+    Pinky:         blue
+    Ring Finger:   cyan
+    Middle Finger: green
+    Left Index:    orange
+    Right Index:   yellow
+    Thumb:         red
+     */
+    private static String matchFinger(Key key)
     {
-        for (int i = 0; i < 13; i++)
+        String finger = key.getFinger();
+        if (finger.equals("Pinky"))
         {
-            printBoxBottom(BG_BLACK, FG_WHITE, 3, false, false);
+            return BG_BLUE;
         }
-        printBoxBottom(BG_BLACK, FG_WHITE, 6, false, false);
+        else if (finger.equals("Ring Finger"))
+        {
+            return BG_CYAN;
+        }
+        else if (finger.equals("Middle Finger"))
+        {
+            return BG_GREEN;
+        }
+        else if (finger.equals("Index Finger"))
+        {
+            if (key.isRightHand())
+            {
+                return BG_YELLOW;
+            }
+            else
+            {
+                return BG_ORANGE;
+            }
+        }
+        else if (finger.equals("Thumb"))
+        {
+            return BG_RED;
+        }
+
+        return BG_RESET;
+    }
+
+
+    public static void printWholeRow(Keyboard keyboard, String mode, int line)
+    {
+        printBoxBottom(BG_BLACK, FG_WHITE, 13 * 4 + 1, false, false);
+
+
+        System.out.println();
+
 
         for (int i = 0; i < 13; i++)
         {
-            
+            resetColours();
+            Key key = keyboard.getKey(i, line, mode);
+            if (key != null)
+            {
+                String colour = matchFinger(key);
+                printBoxMiddle(colour, FG_BLACK, key.getTouchName(), 3, i == 0, true);
+            }
+            else
+            {
+                printBoxMiddle(BG_ORANGE, FG_BLACK, "", 3, i == 0, true);
+            }
         }
+
+
+        System.out.println();
     }
+
 
 }

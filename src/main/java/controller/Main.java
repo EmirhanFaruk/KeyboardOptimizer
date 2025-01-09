@@ -7,6 +7,7 @@ import model.keyboardeval.KeyboardEvaluator;
 import model.keyboardeval.KeyboardOptimizer;
 import util.JSONWriter;
 import view.Display;
+import view.DisplayKeyboard;
 
 import java.io.FileNotFoundException;
 import java.util.Hashtable;
@@ -44,6 +45,16 @@ public class Main
         System.out.println( "Le score du clavier apres optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
         System.out.println(keyboard);
+
+
+        for (String mode : new String[]{"Normal", "Shift", "AltGr"})
+        {
+            System.out.println("\n\nMode: " + mode + "\n\n");
+            for (int i = 0; i < 5; i++)
+            {
+                DisplayKeyboard.printWholeRow(keyboard, mode, i);
+            }
+        }
 
     }
 }
