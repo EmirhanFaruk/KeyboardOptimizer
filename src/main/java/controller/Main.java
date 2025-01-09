@@ -23,6 +23,10 @@ public class Main
         Hashtable<String[], Integer> NGrammes = new Hashtable<>() ;
 
         Keyboard keyboard = Keyboard.keyboardFromJSON("src/main/resources/json/init_keyboard.json");
+
+        DisplayKeyboard.printKeyboard(keyboard);
+
+
         KeyboardOptimizer keyboardOptimizer = new KeyboardOptimizer( keyboard );
         KeyboardEvaluator keyboardEvaluator = new KeyboardEvaluator( keyboard ) ;
 
@@ -47,14 +51,7 @@ public class Main
         System.out.println(keyboard);
 
 
-        for (String mode : new String[]{"Normal", "Shift", "AltGr"})
-        {
-            System.out.println("\n\nMode: " + mode + "\n\n");
-            for (int i = 0; i < 5; i++)
-            {
-                DisplayKeyboard.printWholeRow(keyboard, mode, i);
-            }
-        }
+        DisplayKeyboard.printKeyboard(keyboard);
 
     }
 }

@@ -29,6 +29,10 @@ Thumb:         red
  */
 public class DisplayKeyboard
 {
+
+    //TODO: https://gist.github.com/fnky/458719343aabd01cfb17a3a4f7296797
+    //      https://gist.github.com/JBlond/2fea43a3049b38287e5e9cefc87b2124
+
     // Foregrounds
     private static final String FG_BLUE = "\u001B[34m";
     private static final String FG_CYAN = "\u001B[36m";
@@ -36,21 +40,22 @@ public class DisplayKeyboard
     private static final String FG_ORANGE = "\u001B[35m";
     private static final String FG_YELLOW = "\u001B[33m";
     private static final String FG_RED = "\u001B[31m";
-
-    private static final String BG_WHITE = "\u001B[37m";
-    private static final String BG_BLACK = "\u001B[40m";
-    private static final String BG_RESET = "\\e[40m";
+    private static final String FG_BLACK = "\u001B[30m";
+    private static final String FG_WHITE = "\u001B[37m";
 
     // Backgrounds
     private static final String BG_BLACK = "\u001B[40m";
-    private static final String BG_WHITE = "\u001B[40m";
-    private static final String BG_BLUE = "\u001B[34m";
-    private static final String BG_CYAN = "\u001B[36m";
-    private static final String BG_GREEN = "\u001B[32m";
-    private static final String BG_ORANGE = "\u001B[35m";
-    private static final String BG_YELLOW = "\u001B[33m";
-    private static final String BG_RED = "\u001B[31m";
-    private static final String BG_RESET = "\u001B[0m";
+    private static final String BG_WHITE = "\u001B[47m";
+    private static final String BG_BLUE = "\u001B[44m";
+    private static final String BG_CYAN = "\u001B[46m";
+    private static final String BG_GREEN = "\u001B[42m";
+    private static final String BG_ORANGE = "\u001B[48;2;255;165;0m"; // Note: ORANGE may not be widely supported; mapped to yellow.
+    private static final String BG_YELLOW = "\u001B[43m";
+    private static final String BG_RED = "\u001B[41m";
+
+
+    private static final String RESET = "\u001B[0m";
+
 
 
 
@@ -64,7 +69,7 @@ public class DisplayKeyboard
      */
     private static void resetColours()
     {
-        System.out.print(BG_RESET + FG_RESET);
+        System.out.print(RESET);
     }
 
 
@@ -142,14 +147,15 @@ public class DisplayKeyboard
             printChar((margin_total/2) + 1, ' ');
         }
 
+
+        // Reset the colours
+        resetColours();
+
         // Print last bar
         if (last_bar)
         {
             writeWStyle("", "", "|");
         }
-
-        // Reset the colours
-        resetColours();
     }
 
 
@@ -224,7 +230,8 @@ public class DisplayKeyboard
             return BG_RED;
         }
 
-        return BG_RESET;
+
+        return RESET;
     }
 
 
@@ -247,7 +254,7 @@ public class DisplayKeyboard
             }
             else
             {
-                printBoxMiddle(BG_ORANGE, FG_BLACK, "", 3, i == 0, true);
+                printBoxMiddle(BG_BLACK, FG_WHITE, "", 3, i == 0, true);
             }
         }
 
@@ -255,5 +262,18 @@ public class DisplayKeyboard
         System.out.println();
     }
 
+
+
+    public static void printKeyboard(Keyboard keyboard)
+    {
+        for (String mode : new String[]{"Normal", "Shift", "AltGr"})
+        {
+            System.out.println("\n\nMode: " + mode + "\n\n");
+            for (int i = 0; i < 5; i++)
+            {
+                DisplayKeyboard.printWholeRow(keyboard, mode, i);
+            }
+        }
+    }
 
 }

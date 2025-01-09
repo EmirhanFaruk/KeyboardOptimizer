@@ -391,7 +391,7 @@ public class Keyboard
         {
             for (Key key : keyL)
             {
-                if (Objects.equals(mode, "Normal") && !key.isAltGr() && key.isShifted() ||
+                if (Objects.equals(mode, "Normal") && !key.isAltGr() && !key.isShifted() ||
                         Objects.equals(mode, "AltGr") && key.isAltGr() && !key.isShifted() ||
                         Objects.equals(mode, "Shift") && !key.isAltGr() && key.isShifted())
                 {
