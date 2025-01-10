@@ -406,6 +406,11 @@ public class Keyboard
         return null;
     }
 
+    /**
+     * Une fonction qui permet trouver une touche à l'aide de son nom
+     * @param name le nom de la touche
+     * @return la touche trouvée
+     */
     public Key findKey ( String name ) {
         for ( ArrayList<Key> list : keys ) {
             for ( Key key : list ) {
@@ -417,6 +422,10 @@ public class Keyboard
         return null ;
     }
 
+    /**
+     * UNe fonction qui crée une copie du clavier
+     * @return une copie du clavier
+     */
     public Keyboard clone() {
         ArrayList<ArrayList<Key>> clonedKeys = new ArrayList<>();
         for (ArrayList<Key> row : this.getKeys()) {

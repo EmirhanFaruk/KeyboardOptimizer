@@ -62,6 +62,11 @@ public class JSONWriter {
     }
 
 
+    /**
+     * Créer un map qui clavier
+     * @param keyboard le clavier
+     * @return la map
+     */
     private static Map<String, ArrayList<ArrayList<ArrayList<String>>>> getStringArrayListMap(Keyboard keyboard) {
         Map<String, ArrayList<ArrayList<ArrayList<String>>>> jsonOutput = new LinkedHashMap<>();
         ArrayList<ArrayList<ArrayList<String>>> keys = new ArrayList<>();
@@ -95,12 +100,17 @@ public class JSONWriter {
         return jsonOutput;
     }
 
+    /**
+     * Une fonction qui cree un json du clavier optimisé.
+     * @param keyboard le clavier optimisé
+     * @param filename nom du fichier
+     */
     public static void saveOptimizedKeyboardAsJSON( Keyboard keyboard, String filename) {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
 
         try {
-            final Map<String, ArrayList<ArrayList<ArrayList<String>>>> jsonOutput = getStringArrayListMap(keyboard);
+            Map<String, ArrayList<ArrayList<ArrayList<String>>>> jsonOutput = getStringArrayListMap(keyboard);
 
             // Sauvegarder le fichier JSON
             String s = File.separator;

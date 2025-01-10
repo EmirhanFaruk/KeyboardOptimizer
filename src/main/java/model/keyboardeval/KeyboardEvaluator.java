@@ -16,6 +16,12 @@ public class KeyboardEvaluator {
     }
 
 
+    /**
+     * Une fonciton qui renvoie la map du n qu'on veut
+     * @param ngrammes le Ngramme
+     * @param n le n qu'on veut
+     * @return la map
+     */
     public  Map<String[], Integer> whatNgrammes (   Map<String[], Integer> ngrammes , int n ){
         Map<String[], Integer> res = new HashMap<>() ;
         for (Map.Entry<String[], Integer> entry : ngrammes.entrySet()) {
@@ -32,6 +38,7 @@ public class KeyboardEvaluator {
         }
         return res ;
     }
+
     /**
      * Évalue la difficulté des mouvements sur un clavier donné.
      */
@@ -140,24 +147,44 @@ public class KeyboardEvaluator {
         return score;
     }
 
+    /**
+     * Vérifie si le bigramme est composé des touches du même doigt.
+     * @param bigram Un tableau de deux chaînes représentant les touches du bigramme.
+     * @return true si les deux touches sont pressées par le même doigt, sinon false.
+     */
     private boolean isSameFingerBigram(String[] bigram) {
         Key firstKey = keyboard.findKey(bigram[0]);
         Key secondKey = keyboard.findKey(bigram[1]);
         return  firstKey.getFinger().equals(secondKey.getFinger());
     }
 
+    /**
+     * Vérifie si le bigramme représente une étendue latérale.
+     * @param bigram Un tableau de deux chaînes représentant les touches du bigramme.
+     * @return true si l'écart de colonnes est supérieur à 1, sinon false.
+     */
     private boolean isLateralStretchBigram(String[] bigram) {
         Key firstKey = keyboard.findKey(bigram[0]);
         Key secondKey = keyboard.findKey(bigram[1]);
         return Math.abs(firstKey.getColumn() - secondKey.getColumn()) > 1;
     }
 
+    /**
+     * Vérifie si le bigramme représente une extension en termes de lignes.
+     * @param bigram Un tableau de deux chaînes représentant les touches du bigramme.
+     * @return true si l'écart de lignes est supérieur à 1, sinon false.
+     */
     private boolean isScissorBigram(String[] bigram) {
         Key firstKey = keyboard.findKey(bigram[0]);
         Key secondKey = keyboard.findKey(bigram[1]);
         return Math.abs(firstKey.getRangee() - secondKey.getRangee()) > 1;
     }
 
+    /**
+     * Vérifie si un trigramme est une mauvaise redirection.
+     * @param trigram Un tableau de trois chaînes représentant les touches du trigramme.
+     * @return true si la séquence de touches représente une mauvaise redirection, sinon false.
+     */
     private boolean isBadRedirection(String[] trigram) {
         Key firstKey = keyboard.findKey( trigram[0]) ;
         Key secondKey = keyboard.findKey( trigram[1] ) ;
@@ -167,12 +194,18 @@ public class KeyboardEvaluator {
                 || (firstKey.getColumn() > secondKey.getColumn() && secondKey.getColumn() < thirdKey.getColumn()));
     }
 
+    /**
+     * Vérifie si un trigramme est composé de touches pressées par le même doigt.
+     * @param trigram Un tableau de trois chaînes représentant les touches du trigramme.
+     * @return true si la première et la troisième touche sont pressées par le même doigt, sinon false.
+     */
     private boolean isSameFingerSkipgram(String[] trigram) {
         Key firstKey = keyboard.findKey(trigram[0]);
         Key thirdKey = keyboard.findKey(trigram[2]);
         return firstKey.getFinger().equals(thirdKey.getFinger());
     }
 
+    /* getteurs et setters */
     public Keyboard getKeyboard() {
         return keyboard;
     }

@@ -10,38 +10,27 @@ import java.util.Scanner;
 public class Display
 {
     static Scanner scannerAnswer ;
-    private int nrv = 0 ;
     static final ArrayList<String> listFiles = ReadFile.getFilePaths(true);
-    private static boolean pourCaractere = false;
 
     public Display (){
         scannerAnswer = new Scanner(System.in) ;
     }
 
     /**
-     * Une fonction qui affiche le menu qui permet l'interactionavec l'utilisateur
-     * @throws FileNotFoundException si le fichier n'est pas trouvé
+     * Une fonction qui affiche le menu qui permet l'interaction avec l'utilisateur
      */
-
-    public void showMenu () throws FileNotFoundException {
+    public void showMenu () {
             displayMenu();
             String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
             switch (userInput) {
                 case "1":
                     System.out.println();
                     chooseDisplayFile();
-                    pourCaractere = true;
-                    break;
-                case "2":
-                    System.out.println();
-                    chooseDisplayFile();
-                    pourCaractere = false;
                     break;
                 case "q":
                     closeScanner();
                     return;
                 default:
-                    errorMessage();
                     showMenu();
         }
     }
@@ -51,8 +40,7 @@ public class Display
      */
     public void displayMenu() {
         System.out.println( "---------------- KEYBOARD ANALYSE ------------------" ) ;
-        System.out.println( "1 : Commencez pour les caracteres" ) ;
-        System.out.println( "2 : Commencez pour les combinaisons des touches" ) ;
+        System.out.println( "1 : Commencez pour les combinaisons des touches" ) ;
         System.out.println( "Q : Quitter" ) ;
         System.out.print( "Choisissez une option : " ) ;
     }
@@ -69,8 +57,7 @@ public class Display
             displayMenu();
 
         } catch (Exception e) {
-            e.printStackTrace();
-            errorMessage();
+            System.out.println("\nErreur : Une erreur est apparu.");
             chooseDisplayFile();
         }
     }
@@ -98,36 +85,10 @@ public class Display
     }
 
     /**
-     * Une fonction qui s'énerve quand on fait trop d'erreur de frappe
-     */
-    private void errorMessage (){
-        if ( nrv < 3 ) {
-            System.out.println("\nArgument invalide. Veuillez réessayer.");
-        } else if (nrv < 6) {
-            System.out.println("\nArrête de te tromper, petite merde.");
-        } else if ( nrv < 9 ) {
-            System.out.println("C'est bon tu m'énerves, ARRÊTE. ");
-        } else if (nrv == 9) {
-            System.out.println("\nLa prochaine fois que tu te trompes je pars.");
-        } else {
-            scannerAnswer.close();
-            System.exit(0);
-        }
-        nrv++;
-    }
-
-
-
-    /**
      * Une fonction qui ferme le scanner activer dans le menu
      */
     public static void closeScanner () {
         scannerAnswer.close() ;
     }
 
-
-    public static boolean getPourCaractere()
-    {
-        return pourCaractere;
-    }
 }
