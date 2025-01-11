@@ -52,7 +52,7 @@ public class KeyboardOptimizer {
      * @return Un clavier optimisé.
      */
     public Keyboard optimize( Map<String[], Integer> frequencies ) {
-        Keyboard res = this.keyboardOriginal ;
+        Keyboard res = this.keyboardOriginal.clone() ;
         double bestScore = this.keyboardEvaluator.evaluateKeyboard(frequencies);
         List<Thread> threads = new ArrayList<>();
         List<KeyboardScore> results = Collections.synchronizedList(new ArrayList<>());
@@ -270,4 +270,94 @@ public class KeyboardOptimizer {
             }
         }
     }
+
+
+    private static List<Map.Entry<String, Integer>> getEntries(Map<String[], Integer> onegrams) {
+        Map<String, Integer> mergedFrequencies = new HashMap<>();
+
+        // Fusionner les fréquences des touches identiques, majuscules/minuscules
+        for (Map.Entry<String[], Integer> entry : onegrams.entrySet()) {
+            String keyName = entry.getKey()[0];
+            String normalizedKey = keyName.toLowerCase();
+            mergedFrequencies.put(normalizedKey, mergedFrequencies.getOrDefault(normalizedKey, 0) + entry.getValue());
+        }
+
+        return new ArrayList<>(mergedFrequencies.entrySet());
+    }
+
+
+    public ArrayList<Key> sortKey( Map<String[], Integer> frequencies ) {
+        Map<String[], Integer> onegrams = keyboardEvaluator.whatNgrammes(frequencies, 1);
+        printMap(onegrams);
+        List<Map.Entry<String, Integer>> sortedOnegrams = getEntries( onegrams ) ;
+
+        sortedOnegrams.sort((e1, e2) -> e2.getValue().compareTo(e1.getValue()));
+
+        ArrayList<Key> res = new ArrayList<>();
+
+        // Parcourir la première rangée du clavier uniquement
+        for (Key key : keyboardOriginal.getKeys().get(0)) {
+            String touchName = key.getTouchName().toLowerCase();
+            for (Map.Entry<String, Integer> entry : sortedOnegrams) {
+                if (entry.getKey().equals(touchName)) {
+                    res.add(key);
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
+    public Keyboard trueOptimize( Map<String[], Integer> frequencies ) {
+        ArrayList<Key> keyFrequencies = sortKey( frequencies ) ;
+        afficheKeyFrequencies(keyFrequencies);
+        Keyboard res = this.keyboardOriginal.clone() ;
+
+        int i = 0;
+        for ( ArrayList<Key> row : res.getKeys() ) {
+            int left = 0;
+            int right = row.size() - 1;
+            for ( Key key : row ) {
+                if ( i >= keyFrequencies.size() ) {
+                    break ;
+                }
+                if ( left == right || left + 1 == right ){
+                    break ;
+                }
+
+                Key firstKey = res.findKey( keyFrequencies.get(i).getTouchName() ) ;
+                switchKey( res , key , firstKey ) ;
+                left++;
+                i++;
+
+                Key secondKey = res.findKey( keyFrequencies.get(i).getTouchName() ) ;
+                switchKey( res , key , secondKey ) ;
+                right--;
+
+                i++;
+
+
+            }
+            if ( i >= keyFrequencies.size() ) {
+                break ;
+            }
+        }
+        return res ;
+    }
+
+    public void afficheKeyFrequencies ( ArrayList<Key> keys ){
+        System.out.println( "\n==================\n" ) ;
+        for ( Key key : keys ) {
+            System.out.println(key.toString());
+        }
+       System.out.println( "\n===================\n" ) ;
+    }
+
+    public void printMap(Map<String[], Integer> map) {
+        for (Map.Entry<String[], Integer> entry : map.entrySet()) {
+            // Print each key-value pair
+            System.out.println("Key: " + Arrays.toString(entry.getKey()) + " -> Value: " + entry.getValue());
+        }
+    }
+
 }

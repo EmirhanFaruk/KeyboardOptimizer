@@ -25,18 +25,22 @@ public class KeyboardEvaluator {
     public  Map<String[], Integer> whatNgrammes (   Map<String[], Integer> ngrammes , int n ){
         Map<String[], Integer> res = new HashMap<>() ;
         for (Map.Entry<String[], Integer> entry : ngrammes.entrySet()) {
-            String[] key = entry.getKey();
-            Integer value = entry.getValue();
+            if (entry != null && entry.getKey() != null && entry.getValue() != null ) {
+                String[] key = entry.getKey();
+                Integer value = entry.getValue();
 
-            if ( n == 2 &&  key.length == n ) {
-                res.put(key, value);
-            } else if ( n == 3 && key.length == n ) {
-                res.put(key, value);
-            } else {
-                return res ;
+                // Vérifier que la longueur de key correspond à n
+                if (key.length == n) {
+                    res.put(key, value);
+                }
             }
         }
-        return res ;
+
+        if (res.isEmpty()) {
+            System.out.println("Aucun n-gramme correspondant trouvé");
+        }
+
+        return res;
     }
 
     /**
@@ -112,18 +116,20 @@ public class KeyboardEvaluator {
         double score = 0;
 
         for (Map.Entry<String[], Integer> entry : bigrams.entrySet()) {
-            String[] bigram = entry.getKey();
-            int frequency = entry.getValue();
+            if (entry != null && entry.getKey() != null && entry.getValue() != null) {
+                String[] bigram = entry.getKey();
+                int frequency = entry.getValue();
 
-            // Vérifier les critères
-            if (isSameFingerBigram(bigram)) {
-                score -= frequency * 0.1 ;
-            } else if (isLateralStretchBigram(bigram)) {
-                score -= frequency * 0.5 ;
-            } else if (isScissorBigram(bigram)) {
-                score -= frequency * 0.7 ;
-            } else {
-                score += frequency * 3 ;
+                // Vérifier les critères
+                if (isSameFingerBigram(bigram)) {
+                    score -= frequency * 0.1;
+                } else if (isLateralStretchBigram(bigram)) {
+                    score -= frequency * 0.5;
+                } else if (isScissorBigram(bigram)) {
+                    score -= frequency * 0.7;
+                } else {
+                    score += frequency * 3;
+                }
             }
         }
 
