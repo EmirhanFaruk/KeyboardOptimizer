@@ -30,15 +30,14 @@ public class Main
         KeyboardEvaluator keyboardEvaluator = new KeyboardEvaluator( keyboard ) ;
 
         AnalyseFile.test(NGrammes);
-        keyboard = keyboardOptimizer.optimize( NGrammes );
-
 
         System.out.println( "Le score du clavier avant l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
+        keyboard = keyboardOptimizer.optimize( NGrammes );
         JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
         keyboardEvaluator.setKeyboard(keyboard);
 
-        System.out.println( "Le score du clavier apres optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
+        System.out.println( "Le score du clavier apres l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
         //System.out.println(keyboard);
 

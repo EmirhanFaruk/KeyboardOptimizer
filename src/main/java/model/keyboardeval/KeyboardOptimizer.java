@@ -8,10 +8,25 @@ import java.util.*;
 public class KeyboardOptimizer {
 
 
-    private static final String[] immutable_keys =
-            {
-                    "shift", "maj", "space", "alt", "ctrl", "alt gr", "tab"
-            };
+    private enum ImmutableKey {
+        SHIFT("shift"),
+        MAJ("maj"),
+        SPACE("space"),
+        ALT("alt"),
+        CTRL("ctrl"),
+        ALT_GR("alt gr"),
+        TAB("tab");
+
+        private final String touchName;
+
+        ImmutableKey(String touchName) {
+            this.touchName = touchName;
+        }
+
+        public String getTouchName() {
+            return touchName;
+        }
+    }
 
 
     private final Keyboard keyboardOriginal;
@@ -27,18 +42,47 @@ public class KeyboardOptimizer {
     }
 
     /**
-     * Optimise la distribution des touches en fonction des fréquences d'utilisation.
-     * @param frequencies Les fréquences d'utilisation des touches.
+     * Classe interne pour encapsuler un clavier et son score.
+     */
+    private record KeyboardScore(Keyboard keyboard, double score) { }
+
+    /**
+     * Optimise la distribution des touches en fonction des fréquences et du type d'évaluation.
+     * @param frequencies Les fréquences d'utilisation (caractères ou groupes de caractères).
      * @return Un clavier optimisé.
      */
-    public Keyboard optimize ( Map<String[], Integer> frequencies ) {
-        Keyboard res =  this.keyboardOriginal ;
-        double bestScore = this.keyboardEvaluator.evaluateKeyboard(frequencies) ;
-        for ( Keyboard keyboard : this.pool ) {
-            this.keyboardEvaluator.setKeyboard(keyboard);
-            double keyboardScore = this.keyboardEvaluator.evaluateKeyboard(frequencies) ;
-            if ( bestScore > keyboardScore ) {
-                res = keyboard ;
+    public Keyboard optimize( Map<String[], Integer> frequencies ) {
+        Keyboard res = this.keyboardOriginal ;
+        double bestScore = this.keyboardEvaluator.evaluateKeyboard(frequencies);
+        List<Thread> threads = new ArrayList<>();
+        List<KeyboardScore> results = Collections.synchronizedList(new ArrayList<>());
+
+        for (Keyboard keyboard : this.pool) {
+            Thread thread = new Thread(() -> {
+                KeyboardEvaluator evaluator = new KeyboardEvaluator(keyboard);
+                double score =  evaluator.evaluateKeyboard(frequencies);
+                results.add(new KeyboardScore(keyboard, score));
+            });
+            threads.add(thread);
+            thread.start();
+        }
+
+        //On attends la fin de tous les threads
+        for (Thread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.out.println("Problème de thread");
+            }
+        }
+
+        //On trouve le clavier avec le meilleur score
+        synchronized (results) {
+            for (KeyboardScore keyboardScore : results) {
+                if (keyboardScore.score > bestScore ) {
+                    bestScore = keyboardScore.score;
+                    res = keyboardScore.keyboard;
+                }
             }
         }
         return res ;
@@ -52,9 +96,9 @@ public class KeyboardOptimizer {
      */
     private boolean isForbidden(Key key)
     {
-        for ( String immutable_key : immutable_keys )
+        for (ImmutableKey immutableKey : ImmutableKey.values())
         {
-            if (immutable_key.equals(key.getTouchName()))
+            if (immutableKey.getTouchName().equals(key.getTouchName()))
             {
                 return true;
             }
@@ -99,11 +143,11 @@ public class KeyboardOptimizer {
                 Key key = list.get(i);
 
                 if (key.getRangee() == rowk1 && key.getColumn() == colk1) {
-                    Key newKey = new Key(key.getTouchName(), rowk2, colk2, k2.getFinger(), key.isRightHand(), key.isShifted(), key.isAltGr());
+                    Key newKey = new Key(key.getTouchName(), rowk2, colk2, k2.getFinger(), k2.isRightHand(), key.isShifted(), key.isAltGr());
                     list.set(i, newKey);
                 }
                 else if (key.getRangee() == rowk2 && key.getColumn() == colk2) {
-                    Key newKey = new Key(key.getTouchName(), rowk1, colk1, k1.getFinger(), key.isRightHand(), key.isShifted(), key.isAltGr());
+                    Key newKey = new Key(key.getTouchName(), rowk1, colk1, k1.getFinger(), k1.isRightHand(), key.isShifted(), key.isAltGr());
                     list.set(i, newKey);
                 }
             }
@@ -210,13 +254,17 @@ public class KeyboardOptimizer {
             for (int i = 0; i < kb.getKeys().get(j).size(); i++) {
                 Key key = kb.getKeys().get(j).get(i);
                 if (!usedKeys.contains(key)) {
-                    // Trouver la première position libre dans res
-                    for (int k = 0; k < res.get(j).size(); k++) {
-                        if (res.get(j).get(k) == null) {
-                            res.get(j).add(key);
+                    boolean added = false;
+                    for (int k = 0; k < res.size(); k++) {
+                        if (res.get(k).size() < res.get(0).size()) {
+                            res.get(k).add(key);
                             usedKeys.add(key);
+                            added = true;
                             break;
                         }
+                    }
+                    if (!added) {
+                        return;
                     }
                 }
             }
