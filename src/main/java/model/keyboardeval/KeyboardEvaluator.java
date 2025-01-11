@@ -28,7 +28,7 @@ public class KeyboardEvaluator {
             String[] key = entry.getKey();
             Integer value = entry.getValue();
 
-            if ( n == 2 &&  key.length <= n ) {
+            if ( n == 2 &&  key.length == n ) {
                 res.put(key, value);
             } else if ( n == 3 && key.length == n ) {
                 res.put(key, value);
@@ -52,6 +52,12 @@ public class KeyboardEvaluator {
 
         score += evaluateTrigrams(trigrams);
 
+        score = ( score / nGrammes.size() ) * 100 ;
+        if ( score < 0 ) {
+            score = 0;
+        } else if ( score > 100 ) {
+            score = 100 ;
+        }
         return score;
     }
 
@@ -111,13 +117,13 @@ public class KeyboardEvaluator {
 
             // Vérifier les critères
             if (isSameFingerBigram(bigram)) {
-                score += frequency * 2; // Pénalité pour SFB
+                score -= frequency * 0.1 ;
             } else if (isLateralStretchBigram(bigram)) {
-                score += frequency * 1.5; // Pénalité pour LSB
+                score -= frequency * 0.5 ;
             } else if (isScissorBigram(bigram)) {
-                score += frequency * 1.2; // Pénalité pour ciseaux
+                score -= frequency * 0.7 ;
             } else {
-                score -= frequency; // Récompense pour alternances et roulements
+                score += frequency * 3 ;
             }
         }
 
@@ -136,11 +142,11 @@ public class KeyboardEvaluator {
 
             // Vérifier les critères
             if (isBadRedirection(trigram)) {
-                score += frequency * 3; // Pénalité pour redirections
+                score -= frequency * 1.5 ;
             } else if (isSameFingerSkipgram(trigram)) {
-                score += frequency * 2.5; // Pénalité pour SKS
+                score -= frequency * 1.9 ;
             } else {
-                score -= frequency; // Récompense pour enchaînements fluides
+                score += frequency * 3 ;
             }
         }
 
