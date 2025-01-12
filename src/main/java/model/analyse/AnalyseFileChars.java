@@ -1,8 +1,7 @@
 package model.analyse;
 
 import model.ReadFile;
-import model.couple.StCouple;
-import view.DisplayHT;
+import model.couple.Couple;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -77,7 +76,7 @@ public class AnalyseFileChars
      * @param ht Hashtable to sort
      * @return Sorted in ArrayList
      */
-    public static ArrayList<StCouple> sortHT(Hashtable<String, Integer> ht)
+    public static ArrayList<Couple<String>> sortHT(Hashtable<String, Integer> ht)
     {
         // If ht is null, return null
         if (ht == null)
@@ -85,16 +84,16 @@ public class AnalyseFileChars
             return null;
         }
 
-        ArrayList<StCouple> couples = new ArrayList<>();
+        ArrayList<Couple<String>> couples = new ArrayList<>();
 
         // Add the elements to the list
         for (String key : ht.keySet())
         {
-            couples.add(new StCouple(key, ht.get(key)));
+            couples.add(new Couple<String>(key, ht.get(key)));
         }
 
         // Sort the list using the func in Couple
-        couples.sort(StCouple::compareTo);
+        couples.sort(Couple::compareTo);
 
         // Reverse the list to get the biggest values at the top
         couples.sort(Comparator.reverseOrder());

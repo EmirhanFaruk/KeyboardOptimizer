@@ -200,7 +200,7 @@ public class DisplayKeyboard
      */
     private static String matchFinger(Key key)
     {
-        String finger = key.getFinger();
+        String finger = key.finger();
         if (finger.equals("Pinky"))
         {
             return BG_BLUE;
@@ -215,7 +215,7 @@ public class DisplayKeyboard
         }
         else if (finger.equals("Index Finger"))
         {
-            if (key.isRightHand())
+            if (key.rightHand())
             {
                 return BG_YELLOW;
             }
@@ -249,7 +249,7 @@ public class DisplayKeyboard
             if (key != null)
             {
                 String colour = matchFinger(key);
-                printBoxMiddle(colour, FG_BLACK, key.getTouchName(), 3, i == 0, true);
+                printBoxMiddle(colour, FG_BLACK, key.touchName(), 3, i == 0, true);
             }
             else
             {

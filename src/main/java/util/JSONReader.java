@@ -9,6 +9,7 @@ import java.util.Hashtable;
 import java.util.Map;
 
 public class JSONReader {
+    private static final String src_path = "src" + File.separator + "main" + File.separator + "resources" + File.separator + "json" + File.separator;
 
     public static Hashtable<String, String[][][]> readKeyboardHTfromJSON(String filePath)
     {
@@ -16,9 +17,7 @@ public class JSONReader {
 
         try {
             // Lire la Map depuis le fichier JSON
-            Map<String, String[][][]> map = mapper.readValue( new File( filePath ) , new TypeReference<>() {} ) ;
-
-            // Convertir la Map en Hashtable<String[], Integer>
+            Map<String, String[][][]> map = mapper.readValue( new File( src_path + filePath ) , new TypeReference<>() {} ) ;
 
             return new Hashtable<>(map);
         } catch ( IOException e ) {

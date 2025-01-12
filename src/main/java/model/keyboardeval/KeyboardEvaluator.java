@@ -56,12 +56,14 @@ public class KeyboardEvaluator {
 
         score += evaluateTrigrams(trigrams);
 
+        /*
         score = ( score / nGrammes.size() ) * 100 ;
         if ( score < 0 ) {
             score = 0;
         } else if ( score > 100 ) {
             score = 100 ;
         }
+         */
         return score;
     }
 
@@ -74,7 +76,7 @@ public class KeyboardEvaluator {
 
         for (ArrayList<Key> row : keyboard.getKeys()) {
             for (Key key : row) {
-                if (key.isRightHand() ) {
+                if (key.rightHand() ) {
                     rightHandEffort += key.getEffort();
                 } else {
                     leftHandEffort += key.getEffort();
@@ -120,21 +122,36 @@ public class KeyboardEvaluator {
                 String[] bigram = entry.getKey();
                 int frequency = entry.getValue();
 
-                // Vérifier les critères
-                if (isSameFingerBigram(bigram)) {
-                    score -= frequency * 0.1;
-                } else if (isLateralStretchBigram(bigram)) {
-                    score -= frequency * 0.5;
-                } else if (isScissorBigram(bigram)) {
-                    score -= frequency * 0.7;
-                } else {
-                    score += frequency * 3;
+                if (!hasNul(bigram))
+                {
+                    // Vérifier les critères
+                    if (isSameFingerBigram(bigram)) {
+                        score -= frequency * 0.1;
+                    } else if (isLateralStretchBigram(bigram)) {
+                        score -= frequency * 0.5;
+                    } else if (isScissorBigram(bigram)) {
+                        score -= frequency * 0.7;
+                    } else {
+                        score += frequency * 3;
+                    }
                 }
             }
         }
 
         return score;
     }
+
+
+    private boolean hasNul(String[] t)
+    {
+        for (int i = 0; i < t.length; i++)
+        {
+            if (t[i] == null)
+                return true;
+        }
+        return false;
+    }
+
 
     /**
      * Évalue les trigrammes (mouvements de longueur 3).
@@ -146,14 +163,18 @@ public class KeyboardEvaluator {
             String[] trigram = entry.getKey();
             int frequency = entry.getValue();
 
-            // Vérifier les critères
-            if (isBadRedirection(trigram)) {
-                score -= frequency * 1.5 ;
-            } else if (isSameFingerSkipgram(trigram)) {
-                score -= frequency * 1.9 ;
-            } else {
-                score += frequency * 3 ;
+            if (!hasNul(trigram))
+            {
+                // Vérifier les critères
+                if (isBadRedirection(trigram)) {
+                    score -= frequency * 1.5 ;
+                } else if (isSameFingerSkipgram(trigram)) {
+                    score -= frequency * 1.9 ;
+                } else {
+                    score += frequency * 3 ;
+                }
             }
+
         }
 
         return score;
@@ -167,7 +188,13 @@ public class KeyboardEvaluator {
     private boolean isSameFingerBigram(String[] bigram) {
         Key firstKey = keyboard.findKey(bigram[0]);
         Key secondKey = keyboard.findKey(bigram[1]);
-        return  firstKey.getFinger().equals(secondKey.getFinger());
+
+        if (firstKey == null || secondKey == null)
+        {
+            return false;
+        }
+
+        return  firstKey.finger().equals(secondKey.finger());
     }
 
     /**
@@ -178,7 +205,13 @@ public class KeyboardEvaluator {
     private boolean isLateralStretchBigram(String[] bigram) {
         Key firstKey = keyboard.findKey(bigram[0]);
         Key secondKey = keyboard.findKey(bigram[1]);
-        return Math.abs(firstKey.getColumn() - secondKey.getColumn()) > 1;
+
+        if (firstKey == null || secondKey == null)
+        {
+            return false;
+        }
+
+        return Math.abs(firstKey.column() - secondKey.column()) > 1;
     }
 
     /**
@@ -189,6 +222,12 @@ public class KeyboardEvaluator {
     private boolean isScissorBigram(String[] bigram) {
         Key firstKey = keyboard.findKey(bigram[0]);
         Key secondKey = keyboard.findKey(bigram[1]);
+
+        if (firstKey == null || secondKey == null)
+        {
+            return false;
+        }
+
         return Math.abs(firstKey.getRangee() - secondKey.getRangee()) > 1;
     }
 
@@ -201,9 +240,13 @@ public class KeyboardEvaluator {
         Key firstKey = keyboard.findKey( trigram[0]) ;
         Key secondKey = keyboard.findKey( trigram[1] ) ;
         Key thirdKey = keyboard.findKey( trigram[2] ) ;
-        return firstKey.isRightHand() && secondKey.isRightHand() && thirdKey.isRightHand()
-                && ((firstKey.getColumn() < secondKey.getColumn() && secondKey.getColumn() > thirdKey.getColumn())
-                || (firstKey.getColumn() > secondKey.getColumn() && secondKey.getColumn() < thirdKey.getColumn()));
+        if (firstKey == null || secondKey == null || thirdKey == null)
+        {
+            return true;
+        }
+        return firstKey.rightHand() && secondKey.rightHand() && thirdKey.rightHand()
+                && ((firstKey.column() < secondKey.column() && secondKey.column() > thirdKey.column())
+                || (firstKey.column() > secondKey.column() && secondKey.column() < thirdKey.column()));
     }
 
     /**
@@ -214,7 +257,13 @@ public class KeyboardEvaluator {
     private boolean isSameFingerSkipgram(String[] trigram) {
         Key firstKey = keyboard.findKey(trigram[0]);
         Key thirdKey = keyboard.findKey(trigram[2]);
-        return firstKey.getFinger().equals(thirdKey.getFinger());
+
+        if (firstKey == null || thirdKey == null)
+        {
+            return true;
+        }
+
+        return firstKey.finger().equals(thirdKey.finger());
     }
 
     /* getteurs et setters */

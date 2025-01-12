@@ -4,22 +4,22 @@
       ["²", "&", "é", "\"", "'", "(", "-", "è", "_", "ç", "à", ")", "="],
       ["tab", "a", "z", "e", "r", "t", "y", "u", "i", "o", "p", "^", "$"],
       ["maj", "q", "s", "d", "f", "g", "h", "j", "k", "l", "m", "ù", "*"],
-      ["shift", "<", "w", "x", "c", "v", "b", "n", ",", ";", ":", "!"],
-      ["ctrl", null, "alt", "space", "alt gr", null, null, "ctrl"]
+      ["shift", "<", "w", "x", "c", "v", "b", "n", ",", ";", ":", "!", null],
+      ["ctrl", null, "alt", "space", "alt gr", null, null, "ctrl", null, null, null, null, null]
     ],
     [
       ["²", "1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "°", "+"],
       [null, "A", "Z", "E", "R", "T", "Y", "U", "I", "O", "P", "¨", "£"],
       ["maj", "Q", "S", "D", "F", "G", "H", "J", "K", "L", "M", "%", "µ"],
-      [null, ">", "W", "X", "C", "V", "B", "N", "?", ".", "/", "§"],
-      [null, null, null, "space", null, null, null, null]
+      [null, ">", "W", "X", "C", "V", "B", "N", "?", ".", "/", "§", null],
+      [null, null, null, "space", null, null, null, null, null, null, null, null, null]
     ],
     [
       [null, null, "~", "#", "{", "[", "|", "`", "\\", "^", "@", "]", "}"],
-      [null, null, null, "€", null, null, null, null, null, null, null, "¤"],
+      [null, null, null, "€", null, null, null, null, null, null, null, "¤", null],
       ["maj", null, null, null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null, null, null, null, null],
-      [null, null, null, null, null, null, null, null]
+      [null, null, null, null, null, null, null, null, null, null, null, null, null],
+      [null, null, null, null, null, null, null, null, null, null, null, null, null]
     ]
   ]
 }

@@ -16,40 +16,54 @@ public class Main
     public static void main() {
         System.out.println("J'AIME BIEN LE PROJET DE CPOO! ^^");
         Display display = new Display() ;
-        display.showMenu();
+        while (true)
+        {
+            display.showMenu();
 
-        Hashtable<String[], Integer> NGrammes = new Hashtable<>() ;
+            String[] clrep = Display.getClient_response();
 
-        Keyboard keyboard = Keyboard.keyboardFromJSON("src/main/resources/json/init_keyboard.json");
+            Hashtable<String[], Integer> NGrammes = new Hashtable<>() ;
 
-        DisplayKeyboard.printKeyboard(keyboard);
+            Keyboard keyboard = Keyboard.keyboardFromJSON("optimized_keyboard.json");
+
+            DisplayKeyboard.printKeyboard(keyboard);
 
 
-        KeyboardOptimizer keyboardOptimizer = new KeyboardOptimizer( keyboard );
-        KeyboardEvaluator keyboardEvaluator = new KeyboardEvaluator( keyboard ) ;
+            KeyboardOptimizer keyboardOptimizer = new KeyboardOptimizer( keyboard );
+            KeyboardEvaluator keyboardEvaluator = new KeyboardEvaluator( keyboard ) ;
 
-        AnalyseFile.test(NGrammes);
+            AnalyseFile.test(NGrammes);
 
-        System.out.println( "Le score du clavier avant l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
+            double initial_score = keyboardEvaluator.evaluateKeyboard(NGrammes);
 
-        /*
-        keyboard = keyboardOptimizer.optimize( NGrammes );
-        JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
-        keyboardEvaluator.setKeyboard(keyboard);
+            System.out.println( "Le score du clavier avant l'optimisation est de " + initial_score ) ;
 
-        System.out.println( "Le score du clavier apres l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
+            /*
+            keyboard = keyboardOptimizer.optimize( NGrammes );
+            JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
+            keyboardEvaluator.setKeyboard(keyboard);
 
-        //System.out.println(keyboard);
+            System.out.println( "Le score du clavier apres l'optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
 
-        DisplayKeyboard.printKeyboard(keyboard);
+            //System.out.println(keyboard);
 
-         */
+            DisplayKeyboard.printKeyboard(keyboard);
 
-        keyboard = keyboardOptimizer.trueOptimize( NGrammes );
-        keyboardEvaluator.setKeyboard(keyboard);
-        System.out.println( "Le score du clavier apres une vrai optimisation est de " + keyboardEvaluator.evaluateKeyboard(NGrammes) ) ;
+             */
 
-        DisplayKeyboard.printKeyboard(keyboard);
+            keyboard = keyboardOptimizer.trueOptimize( NGrammes );
+            keyboardEvaluator.setKeyboard(keyboard);
 
+            double optimized_score = keyboardEvaluator.evaluateKeyboard(NGrammes);
+            System.out.println( "Le score du clavier apres une vrai optimisation est de " + optimized_score ) ;
+
+            if (initial_score > optimized_score)
+            {
+                JSONWriter.saveOptimizedKeyboardAsJSON( keyboard, "optimized_keyboard.json");
+            }
+
+
+            DisplayKeyboard.printKeyboard(keyboard);
+        }
     }
 }

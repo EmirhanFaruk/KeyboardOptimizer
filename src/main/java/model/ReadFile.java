@@ -123,7 +123,6 @@ public class ReadFile
             text = text + str + "\n"; // On ajoute "\n" car on doit appuyer sur entree donc il faut le rajouter
         }
         scanner.close();
-        Display.closeScanner();
     }
 
     public File getFile() {
