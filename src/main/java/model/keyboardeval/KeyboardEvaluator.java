@@ -191,20 +191,6 @@ public class KeyboardEvaluator {
 
         if (firstKey == null || secondKey == null)
         {
-            System.out.println("One of the keys are null isSameFingerBigram:");
-            for (int i = 0; i < bigram.length; i++)
-            {
-                System.out.print(i + ": ");
-                if (bigram[i] != null)
-                {
-                    System.out.print(bigram[i] + ", ");
-                }
-                else
-                {
-                    System.out.print("null,");
-                }
-            }
-            System.out.println();
             return false;
         }
 
@@ -222,20 +208,6 @@ public class KeyboardEvaluator {
 
         if (firstKey == null || secondKey == null)
         {
-            System.out.println("One of the keys are null isLateralStretchBigram:");
-            for (int i = 0; i < bigram.length; i++)
-            {
-                System.out.print(i + ": ");
-                if (bigram[i] != null)
-                {
-                    System.out.print(bigram[i] + ", ");
-                }
-                else
-                {
-                    System.out.print("null,");
-                }
-            }
-            System.out.println();
             return false;
         }
 
@@ -253,20 +225,6 @@ public class KeyboardEvaluator {
 
         if (firstKey == null || secondKey == null)
         {
-            System.out.println("One of the keys are null isScissorBigram:");
-            for (int i = 0; i < bigram.length; i++)
-            {
-                System.out.print(i + ": ");
-                if (bigram[i] != null)
-                {
-                    System.out.print(bigram[i] + ", ");
-                }
-                else
-                {
-                    System.out.print("null,");
-                }
-            }
-            System.out.println();
             return false;
         }
 
@@ -284,20 +242,6 @@ public class KeyboardEvaluator {
         Key thirdKey = keyboard.findKey( trigram[2] ) ;
         if (firstKey == null || secondKey == null || thirdKey == null)
         {
-            System.out.println("One of the keys are null isBadRedirection:");
-            for (int i = 0; i < trigram.length; i++)
-            {
-                System.out.print(i + ": ");
-                if (trigram[i] != null)
-                {
-                    System.out.print(trigram[i] + ", ");
-                }
-                else
-                {
-                    System.out.print("null,");
-                }
-            }
-            System.out.println();
             return true;
         }
         return firstKey.rightHand() && secondKey.rightHand() && thirdKey.rightHand()
@@ -316,20 +260,6 @@ public class KeyboardEvaluator {
 
         if (firstKey == null || thirdKey == null)
         {
-            System.out.println("One of the keys are null isSameFingerSkipgram:");
-            for (int i = 0; i < trigram.length; i++)
-            {
-                System.out.print(i + ": ");
-                if (trigram[i] != null)
-                {
-                    System.out.print(trigram[i] + ", ");
-                }
-                else
-                {
-                    System.out.print("null,");
-                }
-            }
-            System.out.println();
             return true;
         }
 
