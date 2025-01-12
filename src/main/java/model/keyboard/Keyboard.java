@@ -251,11 +251,11 @@ public class Keyboard
         {
             for (Key key : keyL)
             {
-                if (key.isRightHand())
+                if (key.rightHand())
                 {
                     for (int i = 0; i < fingers.length; i++)
                     {
-                        if (fingers[i].equals(key.getFinger()))
+                        if (fingers[i].equals(key.finger()))
                         {
                             res[i][0] += 1;
                         }
@@ -265,7 +265,7 @@ public class Keyboard
                 {
                     for (int i = 0; i < fingers.length; i++)
                     {
-                        if (fingers[i].equals(key.getFinger()))
+                        if (fingers[i].equals(key.finger()))
                         {
                             res[i][1] += 1;
                         }
@@ -289,7 +289,7 @@ public class Keyboard
         {
             for (Key key : keyL)
             {
-                if (key.isRightHand())
+                if (key.rightHand())
                 {
                     res[0] += 1;
                 }
@@ -395,7 +395,7 @@ public class Keyboard
                         Objects.equals(mode, "AltGr") && key.isAltGr() && !key.isShifted() ||
                         Objects.equals(mode, "Shift") && !key.isAltGr() && key.isShifted())
                 {
-                    if (key.getColumn() == i && key.getLine() == j)
+                    if (key.column() == i && key.line() == j)
                     {
                         return key;
                     }
@@ -414,7 +414,7 @@ public class Keyboard
     public Key findKey ( String name ) {
         for ( ArrayList<Key> list : keys ) {
             for ( Key key : list ) {
-                if ( key.getTouchName().equals(name)) {
+                if ( key.touchName().equals(name)) {
                     return key ;
                 }
             }
@@ -431,7 +431,7 @@ public class Keyboard
         for (ArrayList<Key> row : this.getKeys()) {
             ArrayList<Key> clonedRow = new ArrayList<>();
             for (Key key : row) {
-                Key clonedKey = new Key(key.getTouchName(), key.getRangee(), key.getColumn(), key.getFinger(), key.isRightHand(), key.isShifted(), key.isAltGr());
+                Key clonedKey = new Key(key.touchName(), key.getRangee(), key.column(), key.finger(), key.rightHand(), key.isShifted(), key.isAltGr());
                 clonedRow.add(clonedKey);
             }
             clonedKeys.add(clonedRow);

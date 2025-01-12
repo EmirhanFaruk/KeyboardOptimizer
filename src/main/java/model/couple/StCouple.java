@@ -1,14 +1,7 @@
 package model.couple;
 
-public class StCouple implements Comparable
+public record StCouple(String key, int value) implements Comparable
 {
-    private final String key;
-    private final int value;
-    public StCouple (String key, int value)
-    {
-        this.key = key;
-        this.value = value;
-    }
 
     @Override
     public int compareTo(Object o)

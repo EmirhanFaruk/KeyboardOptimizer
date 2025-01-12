@@ -76,7 +76,7 @@ public class KeyboardEvaluator {
 
         for (ArrayList<Key> row : keyboard.getKeys()) {
             for (Key key : row) {
-                if (key.isRightHand() ) {
+                if (key.rightHand() ) {
                     rightHandEffort += key.getEffort();
                 } else {
                     leftHandEffort += key.getEffort();
@@ -208,7 +208,7 @@ public class KeyboardEvaluator {
             return false;
         }
 
-        return  firstKey.getFinger().equals(secondKey.getFinger());
+        return  firstKey.finger().equals(secondKey.finger());
     }
 
     /**
@@ -239,7 +239,7 @@ public class KeyboardEvaluator {
             return false;
         }
 
-        return Math.abs(firstKey.getColumn() - secondKey.getColumn()) > 1;
+        return Math.abs(firstKey.column() - secondKey.column()) > 1;
     }
 
     /**
@@ -300,9 +300,9 @@ public class KeyboardEvaluator {
             System.out.println();
             return true;
         }
-        return firstKey.isRightHand() && secondKey.isRightHand() && thirdKey.isRightHand()
-                && ((firstKey.getColumn() < secondKey.getColumn() && secondKey.getColumn() > thirdKey.getColumn())
-                || (firstKey.getColumn() > secondKey.getColumn() && secondKey.getColumn() < thirdKey.getColumn()));
+        return firstKey.rightHand() && secondKey.rightHand() && thirdKey.rightHand()
+                && ((firstKey.column() < secondKey.column() && secondKey.column() > thirdKey.column())
+                || (firstKey.column() > secondKey.column() && secondKey.column() < thirdKey.column()));
     }
 
     /**
@@ -333,7 +333,7 @@ public class KeyboardEvaluator {
             return true;
         }
 
-        return firstKey.getFinger().equals(thirdKey.getFinger());
+        return firstKey.finger().equals(thirdKey.finger());
     }
 
     /* getteurs et setters */

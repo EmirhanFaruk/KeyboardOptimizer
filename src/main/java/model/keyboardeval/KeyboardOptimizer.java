@@ -98,7 +98,7 @@ public class KeyboardOptimizer {
     {
         for (ImmutableKey immutableKey : ImmutableKey.values())
         {
-            if (immutableKey.getTouchName().equals(key.getTouchName()))
+            if (immutableKey.getTouchName().equals(key.touchName()))
             {
                 return true;
             }
@@ -116,7 +116,7 @@ public class KeyboardOptimizer {
      */
     private Key getCounterKey(Key sk, Key dk)
     {
-        return new Key(sk.getTouchName(), dk.getLine(), dk.getColumn(), dk.getFinger(), dk.isRightHand(), dk.isShifted(), dk.isAltGr());
+        return new Key(sk.touchName(), dk.line(), dk.column(), dk.finger(), dk.rightHand(), dk.isShifted(), dk.isAltGr());
     }
 
 
@@ -135,19 +135,19 @@ public class KeyboardOptimizer {
             return;
         }
 
-        int rowk1 = k1.getRangee(), colk1 = k1.getColumn();
-        int rowk2 = k2.getRangee(), colk2 = k2.getColumn();
+        int rowk1 = k1.getRangee(), colk1 = k1.column();
+        int rowk2 = k2.getRangee(), colk2 = k2.column();
 
         for (ArrayList<Key> list : keyboard.getKeys()) {
             for (int i = 0; i < list.size(); i++) {
                 Key key = list.get(i);
 
-                if (key.getRangee() == rowk1 && key.getColumn() == colk1) {
-                    Key newKey = new Key(key.getTouchName(), rowk2, colk2, k2.getFinger(), k2.isRightHand(), key.isShifted(), key.isAltGr());
+                if (key.getRangee() == rowk1 && key.column() == colk1) {
+                    Key newKey = new Key(key.touchName(), rowk2, colk2, k2.finger(), k2.rightHand(), key.isShifted(), key.isAltGr());
                     list.set(i, newKey);
                 }
-                else if (key.getRangee() == rowk2 && key.getColumn() == colk2) {
-                    Key newKey = new Key(key.getTouchName(), rowk1, colk1, k1.getFinger(), k1.isRightHand(), key.isShifted(), key.isAltGr());
+                else if (key.getRangee() == rowk2 && key.column() == colk2) {
+                    Key newKey = new Key(key.touchName(), rowk1, colk1, k1.finger(), k1.rightHand(), key.isShifted(), key.isAltGr());
                     list.set(i, newKey);
                 }
             }
@@ -297,7 +297,7 @@ public class KeyboardOptimizer {
 
         // Parcourir la première rangée du clavier uniquement
         for (Key key : keyboardOriginal.getKeys().get(0)) {
-            String touchName = key.getTouchName().toLowerCase();
+            String touchName = key.touchName().toLowerCase();
             for (Map.Entry<String, Integer> entry : sortedOnegrams) {
                 if (entry.getKey().equals(touchName)) {
                     res.add(key);
@@ -325,12 +325,12 @@ public class KeyboardOptimizer {
                     break ;
                 }
 
-                Key firstKey = res.findKey( keyFrequencies.get(i).getTouchName() ) ;
+                Key firstKey = res.findKey( keyFrequencies.get(i).touchName() ) ;
                 switchKey( res , key , firstKey ) ;
                 left++;
                 i++;
 
-                Key secondKey = res.findKey( keyFrequencies.get(i).getTouchName() ) ;
+                Key secondKey = res.findKey( keyFrequencies.get(i).touchName() ) ;
                 switchKey( res , key , secondKey ) ;
                 right--;
 

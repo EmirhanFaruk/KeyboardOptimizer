@@ -83,8 +83,8 @@ public class JSONWriter {
             // Place les touches aux positions correspondantes
             for (Key key : keyList) {
                 int row = key.getRangee(); // Ligne où se trouve la touche
-                int col = key.getColumn(); // Colonne où se trouve la touche
-                rawRange.get(row).set(col, key.getTouchName());
+                int col = key.column(); // Colonne où se trouve la touche
+                rawRange.get(row).set(col, key.touchName());
             }
 
             // Filtre les rangées qui contiennent au moins une valeur non nulle

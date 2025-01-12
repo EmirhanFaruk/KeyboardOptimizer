@@ -3,7 +3,6 @@ package model.analyse;
 import model.ReadFile;
 import model.couple.StLCouple;
 import util.JSONWriter;
-import view.DisplayHT;
 
 import java.util.*;
 

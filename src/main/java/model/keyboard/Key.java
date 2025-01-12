@@ -1,55 +1,34 @@
 package model.keyboard;
 
-public class Key {
-    private final String touchName ;
-    private final int line ;
-    private final int column ;
-    private final String finger ;
-    private final boolean rightHand;
-    private final boolean isShifted;
-    private final boolean isAltGr;
-
-    public Key( String touchName , int line , int column , String finger , boolean rightHand , boolean isShifted , boolean isAltGr ) {
-        this.touchName = touchName ;
-        this.line = line ;
-        this.column = column ;
-        this.finger = finger ;
-        this.rightHand = rightHand ;
-        this.isShifted = isShifted ;
-        this.isAltGr = isAltGr ;
-    }
+public record Key(String touchName,
+                  int line, int column,
+                  String finger,
+                  boolean rightHand,
+                  boolean isShifted,
+                  boolean isAltGr) {
 
     @Override
     public String toString() {
         String res = "Key(" + touchName + " , " + line + " , " + column + " , " + finger + ", ";
-        if ( rightHand )
-        {
+        if (rightHand) {
             res += "rightHand, ";
-        }
-        else
-        {
+        } else {
             res += "leftHand, ";
         }
 
-        if ( isShifted )
-        {
+        if (isShifted) {
             res += "isShifted, ";
-        }
-        else
-        {
+        } else {
             res += "notShifted, ";
         }
 
-        if (isAltGr)
-        {
+        if (isAltGr) {
             res += "isAltGr )";
-        }
-        else
-        {
+        } else {
             res += "notAltGr )";
         }
 
-        return  res;
+        return res;
     }
 
     public double getEffort() {
@@ -90,37 +69,7 @@ public class Key {
         }
     }
 
-
-    // Getters et setters
-    public String getTouchName() {
-        return touchName ;
-    }
-
     public int getRangee() {
-        return line ;
-    }
-
-    public int getColumn() {
-        return column ;
-    }
-
-    public int getLine() {
         return line;
-    }
-
-    public String getFinger() {
-        return finger ;
-    }
-
-    public boolean isShifted() {
-        return isShifted;
-    }
-
-    public boolean isAltGr() {
-        return isAltGr;
-    }
-
-    public boolean isRightHand() {
-        return rightHand;
     }
 }
