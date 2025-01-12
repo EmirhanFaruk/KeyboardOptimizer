@@ -1,5 +1,6 @@
 package model.keyboardeval;
 
+import model.couple.Couple;
 import model.keyboard.Key;
 import model.keyboard.Keyboard;
 
@@ -353,10 +354,29 @@ public class KeyboardOptimizer {
        System.out.println( "\n===================\n" ) ;
     }
 
+
+
+
+
+    public static ArrayList<Couple<String[]>> sortMap(Map<String[], Integer> map ) {
+        ArrayList<Couple<String[]>> res = new ArrayList<>();
+
+        for (Map.Entry<String[], Integer> entry : map.entrySet())
+        {
+            res.add(new Couple<>(entry.getKey(), entry.getValue()));
+        }
+        res.sort(Couple::compareTo);
+
+        return res;
+    }
+
     public static void printMap(Map<String[], Integer> map) {
-        for (Map.Entry<String[], Integer> entry : map.entrySet()) {
+
+        ArrayList<Couple<String[]>> list = sortMap(map);
+
+        for (Couple<String[]> couple : list) {
             // Print each key-value pair
-            System.out.println("Key: " + Arrays.toString(entry.getKey()) + " -> Value: " + entry.getValue());
+            System.out.println(couple);
         }
     }
 

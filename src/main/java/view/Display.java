@@ -26,6 +26,7 @@ public class Display
             String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
             switch (userInput) {
                 case "1": // Tout
+
                     client_response[0] = "1";
                     chooseDisplayFile();
                     break;
@@ -35,29 +36,25 @@ public class Display
                     System.out.println(client_response[1]);
                     if (client_response[1].equals("1")) // Analyseur
                     {
+                        chooseClavier();
                         chooseDisplayFile();
+                        break;
                     }
                     else if (client_response[1].equals("2")) // Evaluateur
                     {
                         chooseClavier();
+                        break;
                     }
                     else if (client_response[1].equals("3")) // Optimisateur
                     {
                         chooseClavier();
                         chooseDisplayFile();
-                    }
-                    else
-                    {
-                        showMenu();
                         break;
                     }
                     break;
                 case "q":
                     closeScanner();
                     exit(0);
-                    return;
-                default:
-                    showMenu();
         }
     }
 
@@ -84,7 +81,6 @@ public class Display
             int i = Integer.parseInt(userInput) - 1 ;
             ReadFile.openFile(listFiles.get(i));
             client_response[2] = listFiles.get(i);
-            displayMenu();
 
         } catch (Exception e) {
             System.out.println("\nErreur : Une erreur est apparu.");
@@ -165,15 +161,13 @@ public class Display
 
     private void chooseClavier()
     {
-        ArrayList<String> listClaviers = ReadFile.getFilePaths("json", true);
+        ArrayList<String> listClaviers = ReadFile.getFilePaths("json", false);
         displayFile("json");
 
         String userInput = scannerAnswer.nextLine().replaceAll("\\s", "").toLowerCase();
         try {
             int i = Integer.parseInt(userInput) - 1 ;
-            ReadFile.openFile(listClaviers.get(i));
             client_response[3] = listClaviers.get(i);
-            displayMenu();
 
         } catch (Exception e) {
             System.out.println("\nErreur : Une erreur est apparu.");

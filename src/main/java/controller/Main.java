@@ -31,30 +31,42 @@ public class Main
                                                             // 2: fic choisi,
                                                             // 3: clavier choisi,
                                                             // 4: clavier/texte
-            if (check(clrep, 0, "1"))
-            {
-                faireTout();
-            }
-            else if (check(clrep, 0, "2"))
-            {
-                if (check(clrep, 1, "1"))
-                {
-                    analyseText();
-                }
-                else if (check(clrep, 1, "2"))
-                {
-                    evaluateKeyboard();
-                }
-                else if (check(clrep, 1, "3"))
-                {
-                    optimizeKeyboard();
-                }
-                else
-                {
-                    System.out.println("Hit the bricks pal ur done");
-                }
-            }
+            try {
 
+                if (check(clrep, 0, "1"))
+                {
+                    System.out.println("Tout");
+                    faireTout();
+                }
+                else if (check(clrep, 0, "2"))
+                {
+                    System.out.println("Seul");
+                    if (check(clrep, 1, "1"))
+                    {
+                        System.out.println("First option(Analyseur)");
+                        analyseText();
+                    }
+                    else if (check(clrep, 1, "2"))
+                    {
+                        System.out.println("Second option(Evaluateur)");
+                        evaluateKeyboard();
+                    }
+                    else if (check(clrep, 1, "3"))
+                    {
+                        System.out.println("Third option(Optimizeur)");
+                        optimizeKeyboard();
+                    }
+                    else
+                    {
+                        System.out.println("Hit the bricks pal you're done");
+                    }
+                }
+            } catch (Exception e)
+            {
+                e.printStackTrace();
+                System.out.println("Erreur. Revenir au menu...");
+            }
+            System.out.println("Fin de boucle");
 
         }
     }
@@ -66,13 +78,15 @@ public class Main
     {
         String[] clrep = Display.getClient_response();
 
-        Hashtable<String[], Integer> NGrammes = new Hashtable<>() ;
+        Hashtable<String[], Integer> NGrammes = new Hashtable<>();
 
         Keyboard keyboard = Keyboard.keyboardFromJSON(clrep[3]);
 
         DisplayKeyboard.printKeyboard(keyboard);
 
         AnalyseFile.test(NGrammes);
+
+        KeyboardOptimizer.printMap(NGrammes);
     }
 
 
@@ -88,11 +102,13 @@ public class Main
 
         KeyboardEvaluator evaluator = new KeyboardEvaluator(keyboard);
 
+        AnalyseFile.test(NGrammes);
+
         double score = evaluator.evaluateKeyboard(NGrammes);
 
         KeyboardOptimizer.printMap(NGrammes);
 
-        System.out.println( "Le score du clavier avant l'optimisation est de " + score ) ;
+        System.out.println( "Le score du clavier avant l'optimisation est de " + score );
     }
 
 
