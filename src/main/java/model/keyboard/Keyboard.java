@@ -1,9 +1,10 @@
-package model;
+package model.keyboard;
 
 import util.JSONReader;
 
 import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.Objects;
 
 public class Keyboard
 {
@@ -311,6 +312,7 @@ public class Keyboard
     {
         String res = "";
 
+        // Avoir les nombres de touches par doigt
         int[][] kid_named_finger = calculateFinger();
 
         res += "\nIndex finger right: " + kid_named_finger[0][0] + ", left: " + kid_named_finger[0][1] + "\n";
@@ -383,6 +385,32 @@ public class Keyboard
         return keys;
     }
 
+    public Key getKey(int i, int j, String mode)
+    {
+        for (ArrayList<Key> keyL : keys)
+        {
+            for (Key key : keyL)
+            {
+                if (Objects.equals(mode, "Normal") && !key.isAltGr() && !key.isShifted() ||
+                        Objects.equals(mode, "AltGr") && key.isAltGr() && !key.isShifted() ||
+                        Objects.equals(mode, "Shift") && !key.isAltGr() && key.isShifted())
+                {
+                    if (key.getColumn() == i && key.getLine() == j)
+                    {
+                        return key;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Une fonction qui permet trouver une touche à l'aide de son nom
+     * @param name le nom de la touche
+     * @return la touche trouvée
+     */
     public Key findKey ( String name ) {
         for ( ArrayList<Key> list : keys ) {
             for ( Key key : list ) {
@@ -394,6 +422,10 @@ public class Keyboard
         return null ;
     }
 
+    /**
+     * UNe fonction qui crée une copie du clavier
+     * @return une copie du clavier
+     */
     public Keyboard clone() {
         ArrayList<ArrayList<Key>> clonedKeys = new ArrayList<>();
         for (ArrayList<Key> row : this.getKeys()) {
