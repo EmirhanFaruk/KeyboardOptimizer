@@ -345,7 +345,7 @@ public class KeyboardOptimizer {
         return res ;
     }
 
-    public void afficheKeyFrequencies ( ArrayList<Key> keys ){
+    public static void afficheKeyFrequencies ( ArrayList<Key> keys ){
         System.out.println( "\n==================\n" ) ;
         for ( Key key : keys ) {
             System.out.println(key.toString());
@@ -353,7 +353,7 @@ public class KeyboardOptimizer {
        System.out.println( "\n===================\n" ) ;
     }
 
-    public void printMap(Map<String[], Integer> map) {
+    public static void printMap(Map<String[], Integer> map) {
         for (Map.Entry<String[], Integer> entry : map.entrySet()) {
             // Print each key-value pair
             System.out.println("Key: " + Arrays.toString(entry.getKey()) + " -> Value: " + entry.getValue());

@@ -1,7 +1,5 @@
 package model;
 
-import view.Display;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class ReadFile
      * Avoir chemin des ressources.
      * @return le chemin des fichiers
      */
-    private static String getPath()
+    private static String getPath(String extension) throws FileNotFoundException
     {
         String res;
         // Avoir path de projet/program
@@ -34,8 +32,20 @@ public class ReadFile
         res = path + s +
                 "src" + s +
                 "main" + s +
-                "resources" + s +
-                "file" + s;
+                "resources" + s;
+
+        if (extension.equals("txt"))
+        {
+            res = res + "file" + s;
+        }
+        else if (extension.equals("json"))
+        {
+            res = res + "json" + s;
+        }
+        else
+        {
+            throw new FileNotFoundException();
+        }
 
         return res;
     }
@@ -45,14 +55,14 @@ public class ReadFile
      * Avoir les fichiers de classeur de ressources(type File)
      * @return les fichiers de type File
      */
-    private static File[] getFiles()
+    private static File[] getFiles(String extension)
     {
         File[] res;
 
         try
         {
             // Avoir les fichiers de classeur de ressources
-            String path = getPath();
+            String path = getPath(extension);
             File dir = new File(path);
             res = dir.listFiles();
         }
@@ -68,12 +78,12 @@ public class ReadFile
 
     /**
      * Renvoyer une liste de fichiers de "file" finissent par .txt
-     * @param path Vrai: path complet. Faux: que le nom
+     * @param full_path Vrai: path complet. Faux: que le nom
      * @return liste des fichiers
      */
-    public static ArrayList<String> getFilePaths(Boolean path)
+    public static ArrayList<String> getFilePaths(String extension, boolean full_path)
     {
-        File[] files = getFiles();
+        File[] files = getFiles(extension);
         ArrayList<String> res = new ArrayList<>();
 
         // Si files est null, ça veut dire aucun fichier dans la classeur
@@ -86,9 +96,9 @@ public class ReadFile
         // Mettre le chemin des fichiers dans res
         for (File f : files)
         {
-            if (f.isFile() && f.getName().endsWith(".txt"))
+            if (f.isFile() && f.getName().endsWith("." + extension))
             {
-                if (path)
+                if (full_path)
                 {
                     res.add(f.getAbsolutePath());
                 }
