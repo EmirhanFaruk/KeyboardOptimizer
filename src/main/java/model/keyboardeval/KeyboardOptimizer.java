@@ -109,7 +109,7 @@ public class KeyboardOptimizer {
 
 
     /**
-     * Returns sk name in dk coordinates and fingers etc with a new key.
+     * Returns sk name in dk coordinates and fingers etc. with a new key.
      * @param sk source key
      * @param dk destination key
      * @return new key
