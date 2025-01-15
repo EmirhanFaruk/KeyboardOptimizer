@@ -173,12 +173,11 @@ public class Keyboard
                     {
                         if (row[j][k] != null)
                         {
-                            // Kid named finger
-                            String[] kidney_failure = getFingerAndHand(j, k); // to get finger and hand
-                            if (kidney_failure[0] != null)
+                            String[] finger_hand = getFingerAndHand(j, k); // to get finger and hand
+                            if (finger_hand[0] != null)
                             {
-                                String finger = kidney_failure[0];
-                                boolean rightHand = isTrue(kidney_failure[1]);
+                                String finger = finger_hand[0];
+                                boolean rightHand = isTrue(finger_hand[1]);
 
 
                                 boolean isShifted = i == 1;

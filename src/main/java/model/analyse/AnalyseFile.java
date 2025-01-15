@@ -369,7 +369,6 @@ public class AnalyseFile
         for (int i = 1; i < 4; i++) {
             System.out.println("================================================");
             Hashtable<String[], Integer> ht = AnalyseFile.getHTofText(ReadFile.text, i);
-            //DisplayHT.printAllStLN(ht, "Bee Movie Script", i);
 
             allNGrammes.put(i + "-grammes", ht);
             NGrammes.putAll(ht);
