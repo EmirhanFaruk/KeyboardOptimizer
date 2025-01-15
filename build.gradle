@@ -7,7 +7,7 @@ configurations {
   testCompile
 }
 
-group 'fr.u-paris.informatique.cpoo5'
+group ''
 version '1.0-SNAPSHOT'
 
 repositories {
@@ -18,6 +18,9 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
     implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.15.2'
+    implementation 'com.fasterxml.jackson.core:jackson-annotations:2.15.2'
 }
 
 test {
@@ -29,9 +32,13 @@ task jsondemo(type: JavaExec) {
     group = "Execution"
     description = "Demonstrate JSON serialization using GSON"
     classpath = sourceSets.main.runtimeClasspath
-    mainClass = 'fr.uparis.informatique.cpoo5.jsondemo.JsonDemo'
+    mainClass = 'main.App'
 }
 
 application {
-    mainClass = 'fr.uparis.informatique.cpoo5.jsondemo.JsonDemo'
+    mainClass = 'main.App'
+}
+
+tasks.withType(JavaExec) {
+    standardInput = System.in
 }
